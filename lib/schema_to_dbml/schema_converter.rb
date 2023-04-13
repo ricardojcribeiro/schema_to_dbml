@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'helpers/constants'
+require_relative './dbml_formatter'
 
 class SchemaConverter
   include Helpers::Constants
@@ -12,7 +13,11 @@ class SchemaConverter
   def convert(schema_file:)
     tables = []
     schema_file.scan(TABLES_REGEXP).each do |table_name, table_comment, columns|
-      tables << dbml_formatter.format(table_name:, table_comment:, columns:)
+      tables << dbml_formatter.format(table_name:, table_comment:, parsed_columns: columns)
     end
   end
+
+  private
+
+  attr_reader :dbml_formatter
 end

@@ -1,0 +1,26 @@
+name: Specs
+on: [push]
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu, macos]
+        ruby: [2.5, 2.6, 2.7]
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Bundle install
+      run: bundle install --jobs 4 --retry 3
+    - name: Run tests
+      run: |
+        bundle exec rspec
+    - name: Upload code coverage
+      uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true
+        file: ./coverage/.resultset.json
+        token: ${{ secrets.CODECOV_TOKEN }}

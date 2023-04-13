@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'schema_to_dbml/version'
 require_relative 'schema_to_dbml/schema_converter'
+require_relative 'schema_to_dbml/errors/missing_rails_error'
+require_relative 'schema_to_dbml/errors/schema_file_not_found_error'
+require_relative 'schema_to_dbml/version'
 
 class SchemaToDbml
   def initialize(schema_converter: SchemaConverter.new)
