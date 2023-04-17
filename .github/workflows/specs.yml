@@ -5,19 +5,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: ruby/setup-ruby@v1
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.1
-    - name: Bundle install
+    - name: Install dependencies
       run: |
         gem install bundler
-        bundle install --jobs 4 --retry 3
-    - name: Run tests
+        bundle install
+    - name: Run specs
+      env:
+        RUBYOPT: -W:no-deprecated
       run: |
-        bundle exec rspec
-    - name: Upload code coverage
-      uses: codecov/codecov-action@v1
+        bundle exec rake test
+        bundle exec rspec --format documentation --require spec_helper
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2.0.0
       with:
-        fail_ci_if_error: true
-        file: ./coverage/.resultset.json
         token: ${{ secrets.CODECOV_TOKEN }}
