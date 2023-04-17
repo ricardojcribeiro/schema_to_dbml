@@ -2,15 +2,17 @@ name: Code quality
 on: [push]
 
 jobs:
-  build:
+  rubocop:
     runs-on: ubuntu-latest
     steps:
-      -  uses: actions/checkout@v2
-      - name: RuboCop Linter
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
-          bundler-cache: true
-      - name: Run rubocop
-        run: |
-          bundle exec rubocop
+    - uses: actions/checkout@v2
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install
+    - name: Run RuboCop
+      run: bundle exec rubocop
