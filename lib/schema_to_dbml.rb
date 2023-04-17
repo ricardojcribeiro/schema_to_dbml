@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'schema_to_dbml/schema_converter'
-require_relative 'schema_to_dbml/errors/missing_rails_error'
 require_relative 'schema_to_dbml/errors/schema_file_not_found_error'
 require_relative 'schema_to_dbml/version'
 
@@ -10,17 +9,15 @@ class SchemaToDbml
     @schema_converter = schema_converter
   end
 
-  def convert
-    @schema_converter.convert(schema:)
+  def convert(schema:)
+    @schema_converter.convert(schema_content: schema_content(schema))
   end
 
   private
 
-  def schema
-    raise MissingRailsError unless Kernel.const_defined? 'Rails'
+  def schema_content(schema)
+    raise Errors::SchemaFileNotFoundError unless File.exist?(schema)
 
-    File.read(File.join(Rails.root, 'db', 'schema.rb'))
-  rescue Errno::ENOENT
-    raise SchemaFileNotFoundError
+    File.read(schema)
   end
 end

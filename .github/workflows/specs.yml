@@ -2,19 +2,16 @@ name: Specs
 on: [push]
 jobs:
   test:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu, macos]
-        ruby: [3.1]
-    runs-on: ${{ matrix.os }}-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ matrix.ruby }}
+        ruby-version: 3.1
     - name: Bundle install
-      run: bundle install --jobs 4 --retry 3
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
     - name: Run tests
       run: |
         bundle exec rspec

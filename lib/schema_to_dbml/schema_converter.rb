@@ -10,11 +10,13 @@ class SchemaConverter
     @dbml_formatter = dbml_formatter
   end
 
-  def convert(schema_file:)
+  def convert(schema_content:)
     tables = []
-    schema_file.scan(TABLES_REGEXP).each do |table_name, table_comment, columns|
+    schema_content.scan(TABLES_REGEXP).each do |table_name, table_comment, columns|
       tables << dbml_formatter.format(table_name:, table_comment:, parsed_columns: columns)
     end
+
+    tables
   end
 
   private
