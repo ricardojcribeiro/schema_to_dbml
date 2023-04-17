@@ -15,7 +15,3 @@ jobs:
     - name: Run tests
       run: |
         bundle exec rspec --require spec_helper --require schema_to_dbml
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v2.0.0
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
