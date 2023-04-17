@@ -1,0 +1,17 @@
+name: Specs
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1
+    - name: Bundle install
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+    - name: Run tests
+      run: |
+        bundle exec rspec --require spec_helper --require schema_to_dbml

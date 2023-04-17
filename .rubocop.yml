@@ -1,0 +1,82 @@
+AllCops:
+  TargetRubyVersion: 3.1.2
+  Exclude:
+    - spec/lib/schema_to_dbml/support/*
+    - spec/shared_examples/*
+    - vendor/bundle/**/*
+  NewCops: enable
+
+Layout/LineLength:
+  Max: 150
+
+Metrics/MethodLength:
+  Max: 14
+
+Metrics/AbcSize:
+  Max: 24
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/RedundantAssignment:
+  Enabled: true
+
+Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+ 
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Max: 7
