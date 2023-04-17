@@ -5,10 +5,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      -  uses: actions/checkout@v2
       - name: RuboCop Linter
-        uses: andrewmcodes/rubocop-linter-action@v3.3.0
+        uses: ruby/setup-ruby@v1
         with:
-          action_config_path: ".github/config/rubocop_linter_action.yml" 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          bundler-cache: true
+      - name: Run rubocop
+        run: |
+          bundle exec rubocop

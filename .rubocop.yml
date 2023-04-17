@@ -3,6 +3,7 @@ AllCops:
   Exclude:
     - spec/lib/schema_to_dbml/support/*
     - spec/shared_examples/*
+    - vendor/bundle/**/*
   NewCops: enable
 
 Layout/LineLength:
