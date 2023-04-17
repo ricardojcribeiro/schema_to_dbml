@@ -14,7 +14,7 @@ jobs:
         bundle install --jobs 4 --retry 3
     - name: Run tests
       run: |
-        bundle exec rspec
+        bundle exec rspec --require spec_helper --require schema_to_dbml
     - name: Upload code coverage
       uses: codecov/codecov-action@v1
       with:

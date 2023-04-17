@@ -8,13 +8,13 @@ end
 
 require 'byebug'
 require 'schema_to_dbml'
-require_relative '../lib/schema_to_dbml/dbml_formatter'
+#require_relative '../lib/schema_to_dbml/dbml_formatter'
 require_relative '../lib/schema_to_dbml/errors/schema_file_not_found_error'
-require_relative '../lib/schema_to_dbml/helpers/constants'
-require_relative '../lib/schema_to_dbml/schema_converter'
+#require_relative '../lib/schema_to_dbml/helpers/constants'
+#require_relative '../lib/schema_to_dbml/schema_converter'
 require_relative '../spec/lib/schema_to_dbml/support/schema_converter_spec_helper'
 require_relative '../spec/lib/schema_to_dbml/support/constants_spec_helper'
-
+puts $LOAD_PATH
 EXAMPLES_PATH = File.join(File.dirname(__FILE__), 'shared_examples')
 
 RSpec.configure do |config|
