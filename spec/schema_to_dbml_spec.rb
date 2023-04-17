@@ -16,7 +16,7 @@ RSpec.describe SchemaToDbml do
       let(:schema_path) { 'invalid_path' }
 
       it 'raises SchemaFileNotFoundError' do
-        expect { subject.convert(schema: schema_path) }.to raise_error(::Errors::SchemaFileNotFoundError)
+        expect { subject.convert(schema: schema_path) }.to raise_error(Errors::SchemaFileNotFoundError)
       end
     end
   end

@@ -4,6 +4,8 @@ AllCops:
   TargetRubyVersion: 3.1.2
   Exclude:
     - spec/lib/schema_to_dbml/support/*
+    - spec/shared_examples/*
+  NewCops: enable
 
 Layout/LineLength:
   Max: 150
@@ -18,9 +20,6 @@ Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
 
 Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-
-Lint/DeprecatedOpenSSLConstant:
   Enabled: true
 
 Lint/MixedRegexpCaptureTypes:
@@ -64,3 +63,12 @@ Style/RedundantAssignment:
 
 Style/RedundantFetchBlock:
   Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+ 
+Gemspec/DevelopmentDependencies:
+  Enabled: false
