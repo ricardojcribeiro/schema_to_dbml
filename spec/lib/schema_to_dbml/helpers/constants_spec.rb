@@ -40,4 +40,33 @@ RSpec.describe Helpers::Constants do
       end
     end
   end
+
+  describe 'RELATIONS_REGEXP' do
+    let(:perform) { schema.scan(described_class::RELATIONS_REGEXP) }
+
+    it 'matches all relation definitions' do
+      expect(perform.size).to eq(3)
+    end
+
+    it 'matches first relation' do
+      expect(perform[0]).to eq(['comments', 'posts', 'post_id', nil])
+    end
+
+    it 'matches second relation' do
+      expect(perform[1]).to eq(['comments', 'users', nil, nil])
+    end
+
+    it 'matches third relation' do
+      expect(perform[2]).to eq(['posts', 'users', nil, 'cascade'])
+    end
+  end
+
+  describe 'DEFAULT_PRIMARY_KEY' do
+    let(:expected_value) do
+      "id integer [pk, unique, note: 'Unique identifier and primary key']"
+    end
+    it 'returns the expected string' do
+      expect(described_class::DEFAULT_PRIMARY_KEY).to eq(expected_value)
+    end
+  end
 end

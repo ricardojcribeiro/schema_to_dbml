@@ -45,5 +45,5 @@ ActiveRecord::Schema.define(version: 20_230_405_123_456) do
 
   add_foreign_key "comments", "posts", column: "post_id"
   add_foreign_key "comments", "users"
-  add_foreign_key "posts", "users"
+  add_foreign_key "posts", "users", on_delete: :cascade
 end

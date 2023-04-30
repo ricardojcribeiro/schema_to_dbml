@@ -7,6 +7,8 @@ module Helpers
 
     COLUMNS_REGEXP = /t\.(?<type>\w+)\s+"(?<name>\w+)"(?:,\s+default:\s+(?<default>[^,\s]+))?(?:,\s+(?<null>null:\s+\w+))?(?:,\s+comment:\s+"(?<comment>[^"]+)")?(?:,\s+precision:\s+(?<precision>\d+))?(?:,\s+array:\s+(?<array>true|false))?.*/
 
+    RELATIONS_REGEXP = /add_foreign_key\s+"(?<from_table>\w+)",\s+"(?<to_table>\w+)"(?:,\s+column:\s+"(?<column>\w+)")?(?:,\s+on_delete:\s+:(?<on_delete>\w+))?/
+
     DEFAULT_PRIMARY_KEY = "id integer [pk, unique, note: 'Unique identifier and primary key']"
     # rubocop:enable Layout/LineLength
   end
