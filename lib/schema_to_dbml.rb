@@ -2,9 +2,20 @@
 
 require_relative 'schema_to_dbml/schema_converter'
 require_relative 'schema_to_dbml/errors/schema_file_not_found_error'
+require_relative 'configuration'
 require_relative 'schema_to_dbml/version'
 
 class SchemaToDbml
+  class << self
+    def configuration
+      @configuration ||= Configuration.new
+    end
+  end
+
+  def self.configure
+    yield(configuration)
+  end
+
   def initialize(schema_converter: SchemaConverter.new)
     @schema_converter = schema_converter
   end

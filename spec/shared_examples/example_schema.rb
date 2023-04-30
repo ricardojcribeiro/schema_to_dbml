@@ -39,11 +39,11 @@ ActiveRecord::Schema.define(version: 20_230_405_123_456) do
     t.bigint "post_id", null: false, comment: "Foreign key of the post that the comment belongs to"
     t.datetime "created_at", null: false, comment: "Timestamp of when the comment was created"
     t.datetime "updated_at", null: false, comment: "Timestamp of when the comment was last updated"
-    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["post_id"], name: "index_comments_on_post_id", unique: true
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "posts", column: "post_id"
   add_foreign_key "comments", "users"
   add_foreign_key "posts", "users"
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DbmlFormatter do
+RSpec.describe DbmlTablesFormatter do
   it 'includes Constants' do
     expect(described_class.ancestors).to include(Helpers::Constants)
   end
@@ -24,6 +24,7 @@ RSpec.describe DbmlFormatter do
     let(:expected_dbml) do
       <<~DBML.strip
         Table users {
+          id integer [pk, unique, note: 'Unique identifier and primary key']
           name varchar [not null,note: 'Name of the user']
           age int [default: 0]
           rating decimal []
@@ -39,6 +40,32 @@ RSpec.describe DbmlFormatter do
 
     it 'formats the given table name, table comment, and parsed columns into a DBML string' do
       expect(perform).to eq(expected_dbml)
+    end
+
+    context 'when custom_primary_key is defined' do
+      let(:custom_primary_key) { "custom_id varchar [pk, note: 'my custom id']" }
+      before do
+        SchemaToDbml.configuration.custom_primary_key = custom_primary_key
+      end
+
+      after { SchemaToDbml.configuration.custom_primary_key = '' }
+
+      let(:expected_dbml) do
+        <<~DBML.strip
+          Table users {
+            custom_id varchar [pk, note: 'my custom id']
+            name varchar [not null,note: 'Name of the user']
+            age int [default: 0]
+            rating decimal []
+            tags text[] []
+            Note: 'Represents a user who can create blog posts and comments'
+          }
+        DBML
+      end
+
+      it 'formats the given custom orimary key' do
+        expect(perform).to eq(expected_dbml)
+      end
     end
   end
 end
