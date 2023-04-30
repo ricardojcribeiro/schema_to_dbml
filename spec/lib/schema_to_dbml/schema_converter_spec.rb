@@ -10,11 +10,21 @@ describe SchemaConverter do
 
     context 'when schema_content contains 3 tables' do
       it 'matches all table definitions' do
-        expect(perform.size).to eq(3)
+        expect(perform[:tables].size).to eq(3)
       end
 
-      it 'matches the dbml array' do
-        expect(perform).to eq(expected_dbml_array)
+      it 'matches the ytables array' do
+        expect(perform[:tables]).to eq(expected_tables_array)
+      end
+    end
+
+    context 'when schema_content contains 3 relations' do
+      it 'matches all relations definitions' do
+        expect(perform[:relations].size).to eq(3)
+      end
+
+      it 'matches the relations array' do
+        expect(perform[:relations]).to eq(expected_relations_array)
       end
     end
   end
