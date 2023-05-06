@@ -1,24 +1,79 @@
 # SchemaToDbml
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/schema_to_dbml`. To experiment with that code, run `bin/console` for an interactive prompt.
+SchemaToDbml is a gem that generates a DBML (Database Markup Language) content from a Rails application schema.rb file. With SchemaToDbml, you can easily visualize your application's database schema in a clean and organized way.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Add this line to your application's Gemfile:
 
-Install the gem and add to the application's Gemfile by executing:
+```ruby
+gem 'schema_to_dbml'
+```
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+And then execute:
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+```ruby
+$ bundle install
+```
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+```ruby
+$ gem install schema_to_dbml
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+To use the SchemaToDbml, first, create a schema.rb file for your Rails application by running:
+
+```ruby
+$ rails db:schema:dump
+```
+Then, you can use the SchemaToDbml to generate a DBML content from the schema.rb file:
+
+```ruby
+require 'schema_to_dbml'
+
+# Load configuration from default file
+SchemaToDbml.configuration
+
+dbml_content = SchemaToDbml.new.convert(schema: 'db/schema.rb')
+puts dbml_content
+```
+
+This will output the generated DBML content.
+
+## Custom Configuration
+
+If you want to customize the DBML content, you can create a YAML configuration file with your desired properties. 
+By default, the SchemaToDbml will try to load the configuration from `schema_to_dbml/configs/custom_config.yml`.
+
+Here's an example of the configuration file:
+
+```yaml
+custom_project_name: 'My Project'
+custom_database_type: 'PostgreSQL'
+custom_project_notes: 'This is my project.'
+custom_primary_key: 'id [pk]'
+```
+
+You can change the properties as you want. After that, you can load the configuration by calling:
+
+```ruby
+SchemaToDbml.load_configuration_from_yaml('/path/to/your/custom_config.yml')
+```
+
+Or you can pass the configuration directly:
+
+```ruby
+config = Configuration.new
+config.custom_project_name = 'My Project'
+config.custom_database_type = 'PostgreSQL'
+config.custom_project_notes = 'This is my project.'
+config.custom_primary_key = 'id'
+
+SchemaToDbml.configure(config)
+```
+
+After that, you can use the SchemaToDbml to generate the DBML content as usual.
 
 ## Development
 

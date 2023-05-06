@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    schema_to_dbml (0.1.0)
+    schema_to_dbml (0.0.1)
 
 GEM
   remote: https://rubygems.org/
