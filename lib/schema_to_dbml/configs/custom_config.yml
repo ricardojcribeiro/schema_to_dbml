@@ -1,0 +1,10 @@
+custom_project_name: 'dbml_database_definition'
+custom_database_type: "'PostgreSQL'"
+custom_project_notes: |
+  # My Project Notes
+  This is a **project** that documents the database. Here are some key points:
+
+  - Utilizes the custom primary key for better indexing
+  - Specifies the appropriate database type (e.g., PostgreSQL)
+  - Provides meaningful project information and descriptions
+custom_primary_key: "id integer [pk, unique, note: 'Unique identifier and primary key']"

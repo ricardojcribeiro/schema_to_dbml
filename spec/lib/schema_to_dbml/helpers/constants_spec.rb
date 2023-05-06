@@ -60,13 +60,4 @@ RSpec.describe Helpers::Constants do
       expect(perform[2]).to eq(['posts', 'users', nil, 'cascade'])
     end
   end
-
-  describe 'DEFAULT_PRIMARY_KEY' do
-    let(:expected_value) do
-      "id integer [pk, unique, note: 'Unique identifier and primary key']"
-    end
-    it 'returns the expected string' do
-      expect(described_class::DEFAULT_PRIMARY_KEY).to eq(expected_value)
-    end
-  end
 end

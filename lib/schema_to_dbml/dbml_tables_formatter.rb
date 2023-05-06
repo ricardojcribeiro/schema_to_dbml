@@ -7,6 +7,10 @@ class DbmlTablesFormatter
   include Helpers::Constants
   include Formatters::FieldsFormatter
 
+  def initialize(configuration: SchemaToDbml.configuration)
+    @configuration = configuration
+  end
+
   def format(table_name:, table_comment:, parsed_columns:)
     columns = build_columns(parsed_columns)
 
@@ -25,26 +29,32 @@ class DbmlTablesFormatter
       formatted_type = format_type(type:, array:)
 
       final_values = [formatted_default, formatted_null, formatted_comment].compact.reject(&:empty?)
-      columns << "  #{name} #{formatted_type} [#{final_values.join(',')}]"
+      columns << build_line(name, formatted_type, final_values)
     end
 
     columns
   end
 
+  def build_line(name, formatted_type, final_values)
+    line = "  #{name} #{formatted_type}"
+
+    return line if final_values.empty?
+
+    line << " [#{final_values.join(',')}]"
+  end
+
   def format_dbml(table_name, columns, table_comment)
     dbml_table = "Table #{table_name} {\n"
-    dbml_table << "  #{default_primary_key}\n"
+    dbml_table << "  #{custom_primary_key}\n"
     dbml_table << columns.join("\n")
     dbml_table << "\n  Note: '#{table_comment}'" unless table_comment.to_s.empty?
     dbml_table << "\n}"
     dbml_table
   end
 
-  def default_primary_key
-    custom_primary_key = SchemaToDbml.configuration.custom_primary_key
-
-    return custom_primary_key unless custom_primary_key.to_s.empty?
-
-    DEFAULT_PRIMARY_KEY
+  def custom_primary_key
+    configuration.custom_primary_key
   end
+
+  attr_reader :configuration
 end

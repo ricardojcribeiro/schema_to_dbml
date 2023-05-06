@@ -27,8 +27,8 @@ RSpec.describe DbmlTablesFormatter do
           id integer [pk, unique, note: 'Unique identifier and primary key']
           name varchar [not null,note: 'Name of the user']
           age int [default: 0]
-          rating decimal []
-          tags text[] []
+          rating decimal
+          tags text[]
           Note: 'Represents a user who can create blog posts and comments'
         }
       DBML
@@ -48,7 +48,7 @@ RSpec.describe DbmlTablesFormatter do
         SchemaToDbml.configuration.custom_primary_key = custom_primary_key
       end
 
-      after { SchemaToDbml.configuration.custom_primary_key = '' }
+      after { SchemaToDbml.configuration.custom_primary_key = "id integer [pk, unique, note: 'Unique identifier and primary key']" }
 
       let(:expected_dbml) do
         <<~DBML.strip
@@ -56,8 +56,8 @@ RSpec.describe DbmlTablesFormatter do
             custom_id varchar [pk, note: 'my custom id']
             name varchar [not null,note: 'Name of the user']
             age int [default: 0]
-            rating decimal []
-            tags text[] []
+            rating decimal
+            tags text[]
             Note: 'Represents a user who can create blog posts and comments'
           }
         DBML
