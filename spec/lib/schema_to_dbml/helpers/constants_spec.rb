@@ -29,13 +29,13 @@ RSpec.describe Helpers::Constants do
     let(:perform) { schema.scan(described_class::COLUMNS_REGEXP) }
 
     it 'matches all column definitions' do
-      expect(perform.size).to eq(17)
+      expect(perform.size).to eq(18)
     end
 
     it 'matches the column type' do
       matches = perform
 
-      17.times do |i|
+      18.times do |i|
         expect(matches[i]).to eq(expected_row_values[i].values_at(:type, :name, :default, :null, :comment, :precision, :array))
       end
     end

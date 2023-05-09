@@ -60,27 +60,54 @@ RSpec.describe Formatters::FieldsFormatter do
   end
 
   describe '#format_default' do
-    let(:perform) { format_default(default:) }
-    let(:default) { nil }
-
-    context 'when default is nil' do
-      it 'returns an empty string' do
-        expect(perform).to eq('')
-      end
+    it 'returns an empty string when default is nil' do
+      expect(format_default(default: nil)).to eq('')
     end
 
-    context 'when default is blank' do
-      let(:default) { '' }
-      it 'returns an empty string' do
-        expect(perform).to eq('')
-      end
+    it 'returns an empty string when default is blank' do
+      expect(format_default(default: '')).to eq('')
     end
 
-    context 'when default is present' do
-      let(:default) { 'value' }
-      it 'returns the formatted default string' do
-        expect(perform).to eq('default: value')
-      end
+    it 'returns an empty string when the default value is an empty string' do
+      default = 'default: ""'
+      expected_output = 'default: ""'
+      expect(format_default(default:)).to eq(expected_output)
+    end
+
+    it 'formats number default correctly' do
+      default = 'default: 0'
+      expected_output = 'default: 0'
+      expect(format_default(default:)).to eq(expected_output)
+    end
+
+    it 'formats lambda default correctly' do
+      default = "default: -> { \"(now() + 'P1Y'::interval)\" }"
+      expected_output = 'default: `(now() + \'P1Y\'::interval)`'
+      expect(format_default(default:)).to eq(expected_output)
+    end
+
+    it 'formats boolean default (true) correctly' do
+      default = 'default: true'
+      expected_output = 'default: true'
+      expect(format_default(default:)).to eq(expected_output)
+    end
+
+    it 'formats boolean default (false) correctly' do
+      default = 'default: false'
+      expected_output = 'default: false'
+      expect(format_default(default:)).to eq(expected_output)
+    end
+
+    it 'formats string default correctly' do
+      default = 'default: "created"'
+      expected_output = 'default: "created"'
+      expect(format_default(default:)).to eq(expected_output)
+    end
+
+    it 'formats empty hash default correctly' do
+      default = 'default: {}'
+      expected_output = "default: '{}'"
+      expect(format_default(default:)).to eq(expected_output)
     end
   end
 
