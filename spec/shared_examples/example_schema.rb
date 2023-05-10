@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20_230_405_123_456) do
   end
 
   create_table "posts", comment: "Represents a blog post created by a user" do |t|
-    t.string "title", null: false, comment: "Title of the post"
+    t.string "title", default: "General Title", null: false, comment: "Title of the post"
     t.text "content", null: false, comment: "Content of the post"
     t.jsonb "context", default: {}
     t.text "internal_description", comment: "Internal description"

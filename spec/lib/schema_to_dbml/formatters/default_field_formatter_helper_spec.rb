@@ -21,7 +21,7 @@ describe DefaultFieldFormatterHelper do
     end
 
     it 'contains the correct string regex pattern and its replacement' do
-      expect(DefaultFieldFormatterHelper::DEFAULT_STRING_REGEX).to eq([/default: (".*?")/, 'default: \1'])
+      expect(DefaultFieldFormatterHelper::DEFAULT_STRING_REGEX).to eq([/default: "(.*?)"/, 'default: \'\1\''])
     end
 
     it 'contains the correct number regex pattern and its replacement' do
