@@ -20,7 +20,7 @@ RSpec.describe DbmlTablesFormatter do
         t.string "password",  default: -> { "(now() + 'P1Y'::interval)" }, null: false, comment: "Encrypted password"
         t.jsonb "context", default: {}
         t.text "tags", array: true
-        t.string "email", default: ""
+        t.string "email", default: ''
         t.boolean "active", default: true
       COLUMNS
     end
@@ -35,7 +35,7 @@ RSpec.describe DbmlTablesFormatter do
           password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
           context jsonb [default: '{}']
           tags text[]
-          email varchar [default: ""]
+          email varchar [default: '']
           active bool [default: true]
           Note: 'Represents a user who can create blog posts and comments'
         }
@@ -68,7 +68,7 @@ RSpec.describe DbmlTablesFormatter do
             password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
             context jsonb [default: '{}']
             tags text[]
-            email varchar [default: ""]
+            email varchar [default: '']
             active bool [default: true]
             Note: 'Represents a user who can create blog posts and comments'
           }

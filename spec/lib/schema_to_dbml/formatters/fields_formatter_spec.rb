@@ -69,8 +69,8 @@ RSpec.describe Formatters::FieldsFormatter do
     end
 
     it 'returns an empty string when the default value is an empty string' do
-      default = 'default: ""'
-      expected_output = 'default: ""'
+      default = "default: ''"
+      expected_output = "default: ''"
       expect(format_default(default:)).to eq(expected_output)
     end
 
@@ -99,8 +99,8 @@ RSpec.describe Formatters::FieldsFormatter do
     end
 
     it 'formats string default correctly' do
-      default = 'default: "created"'
-      expected_output = 'default: "created"'
+      default = "default: 'created'"
+      expected_output = "default: 'created'"
       expect(format_default(default:)).to eq(expected_output)
     end
 
