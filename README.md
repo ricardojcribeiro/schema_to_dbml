@@ -43,7 +43,7 @@ This will output the generated DBML content.
 
 ## Custom Configuration
 
-If you want to customize the DBML content, you can create a YAML configuration file with your desired properties. 
+If you want to customize the DBML content, you can create a YAML configuration file with your desired properties.
 By default, the SchemaToDbml will try to load the configuration from `schema_to_dbml/configs/custom_config.yml`.
 
 Here's an example of the configuration file:
@@ -83,7 +83,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/schema_to_dbml. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/schema_to_dbml/blob/main/CODE_OF_CONDUCT.md).
+Please read the [contribution guideline](https://github.com/ricardojcribeiro/schema_to_dbml/blob/develop/CONTRIBUTE.md)
 
 ## License
 
