@@ -4,45 +4,40 @@ RSpec.describe BuildDbmlContent do
   let(:configuration) do
     instance_double(
       Configuration,
-      custom_project_name: 'SampleProject',
+      custom_project_name: 'TestProject',
       custom_database_type: 'PostgreSQL',
-      custom_project_notes: 'This is a sample project.'
+      custom_project_notes: 'TestNotes',
+      custom_dbml_content:
     )
   end
-
-  let(:converted_data) do
+  let(:converted) do
     {
-      tables: [
-        "Table users {\n  id integer [pk, unique]\n  name varchar\n  email varchar\n}",
-        "Table posts {\n  id integer [pk, unique]\n  title varchar\n  content text\n}"
-      ],
-      relations: [
-        'Ref: users.id < posts.user_id'
-      ]
+      tables: ['Table users { id integer [pk] name varchar }'],
+      relations: ['Ref: users.id < orders.user_id']
     }
+  end
+  let(:custom_dbml_content) do
+    "enum object_status {
+      created [note: 'Waiting to be processed']
+      running
+      done
+      failure
+    }"
   end
 
   subject { described_class.new(configuration:) }
-  let(:perform) { subject.build(converted: converted_data) }
+  let(:perform) { subject.build(converted:) }
 
   describe '#build' do
-    it 'returns a string' do
-      expect(perform).to be_a(String)
-    end
+    it 'returns the expected DBML content' do
+      expected_dbml_content = [
+        "Project TestProject {\n  database_type: PostgreSQL\n  Note: 'TestNotes'\n}",
+        'Table users { id integer [pk] name varchar }',
+        'Ref: users.id < orders.user_id',
+        custom_dbml_content
+      ].join("\n\n")
 
-    it 'includes the project header' do
-      expect(perform).to include("Project #{configuration.custom_project_name}")
-      expect(perform).to include("database_type: #{configuration.custom_database_type}")
-      expect(perform).to include("Note: '#{configuration.custom_project_notes}'")
-    end
-
-    it 'includes the tables section' do
-      expect(perform).to include('Table users')
-      expect(perform).to include('Table posts')
-    end
-
-    it 'includes the relations section' do
-      expect(perform).to include('Ref: users.id < posts.user_id')
+      expect(perform).to eq(expected_dbml_content)
     end
   end
 end

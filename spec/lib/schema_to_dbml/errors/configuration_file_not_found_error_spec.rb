@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-RSpec.describe Errors::YamlFileNotFoundError do
+RSpec.describe Errors::ConfigurationFileNotFoundError do
   describe '#initialize' do
     context 'when no message is provided' do
       it 'sets a default message' do
-        expect(subject.message).to eq('Yaml file was not found')
+        expect(subject.message).to eq('Configuration file was not found')
       end
     end
 

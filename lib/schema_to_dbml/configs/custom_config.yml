@@ -8,3 +8,4 @@ custom_project_notes: |
   - Specifies the appropriate database type (e.g., PostgreSQL)
   - Provides meaningful project information and descriptions
 custom_primary_key: "id integer [pk, unique, note: 'Unique identifier and primary key']"
+custom_dbml_content: ''

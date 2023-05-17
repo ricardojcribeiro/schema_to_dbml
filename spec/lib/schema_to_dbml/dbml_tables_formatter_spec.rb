@@ -46,6 +46,10 @@ RSpec.describe DbmlTablesFormatter do
       subject.format(table_name:, table_comment:, parsed_columns:)
     end
 
+    before do
+      SchemaToDbml.load_configuration_from_yaml
+    end
+
     it 'formats the given table name, table comment, and parsed columns into a DBML string' do
       expect(perform).to eq(expected_dbml)
     end
