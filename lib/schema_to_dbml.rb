@@ -5,7 +5,7 @@ require 'active_support/core_ext/hash'
 require_relative 'configuration'
 require_relative 'schema_to_dbml/build_dbml_content'
 require_relative 'schema_to_dbml/errors/schema_file_not_found_error'
-require_relative 'schema_to_dbml/errors/yaml_file_not_found_error'
+require_relative 'schema_to_dbml/errors/configuration_file_not_found_error'
 require_relative 'schema_to_dbml/schema_converter'
 require_relative 'schema_to_dbml/version'
 
@@ -14,40 +14,24 @@ class SchemaToDbml
 
   class << self
     def configuration
-      @configuration ||= load_configuration_from_yaml(file_path: DEFAULT_CONFIG_FILE)
+      @configuration ||= Configuration.new
     end
 
     def load_configuration_from_yaml(file_path: DEFAULT_CONFIG_FILE)
-      raise Errors::YamlFileNotFoundError, "#{file_path} not found" unless File.exist?(file_path)
+      raise Errors::ConfigurationFileNotFoundError unless File.exist?(file_path)
 
-      yaml_data = load_yaml(file_path)
-      yaml_data = merge_with_defaults(yaml_data) if default_config?(file_path)
+      yaml_data = YAML.load_file(file_path)
+      yaml_data = merge_with_defaults(file_path, yaml_data)
 
-      configure_settings(Configuration.new, yaml_data)
+      configuration.configure_from_hash(yaml_data)
     end
 
-    private
+    def merge_with_defaults(file_path, yaml_data)
+      return yaml_data unless file_path != DEFAULT_CONFIG_FILE
 
-    def load_yaml(file_path)
-      YAML.load_file(file_path)
-    end
+      default_settings = YAML.load_file(DEFAULT_CONFIG_FILE)
 
-    def merge_with_defaults(yaml_data)
-      default_settings = load_yaml(DEFAULT_CONFIG_FILE)
       default_settings.deep_merge!(yaml_data)
-    end
-
-    def default_config?(file_path)
-      file_path != DEFAULT_CONFIG_FILE
-    end
-
-    def configure_settings(config, yaml_data)
-      config.tap do |c|
-        c.custom_primary_key = yaml_data['custom_primary_key']
-        c.custom_database_type = yaml_data['custom_database_type']
-        c.custom_project_name = yaml_data['custom_project_name']
-        c.custom_project_notes = yaml_data['custom_project_notes']
-      end
     end
   end
 

@@ -8,6 +8,10 @@ RSpec.describe SchemaToDbml do
     let(:expected_dbml_content) { File.read("#{EXAMPLES_PATH}/example_schema.dbml") }
     let(:perform) { subject.convert(schema: schema_path) }
 
+    before do
+      SchemaToDbml.load_configuration_from_yaml
+    end
+
     context 'when schema file exists' do
       it 'returns the expected DBML content' do
         expect(perform).to eq(final_dbml_content)
@@ -18,7 +22,7 @@ RSpec.describe SchemaToDbml do
       let(:schema_path) { 'invalid_path' }
 
       it 'raises SchemaFileNotFoundError' do
-        expect { perform[:tables] }.to raise_error(Errors::SchemaFileNotFoundError)
+        expect { perform }.to raise_error(Errors::SchemaFileNotFoundError)
       end
     end
   end
@@ -26,7 +30,6 @@ RSpec.describe SchemaToDbml do
   describe '.load_configuration_from_yaml' do
     let(:default_config_path) { SchemaToDbml::DEFAULT_CONFIG_FILE }
     let(:file_path) { nil }
-    let(:config) { Configuration.new }
     let(:perform) { SchemaToDbml.load_configuration_from_yaml(file_path:) }
 
     context 'when custom configuration file is missing primary key' do
@@ -41,14 +44,17 @@ RSpec.describe SchemaToDbml do
       end
 
       it 'uses default primary key' do
-        expect(perform).to have_attributes(expected_response)
+        perform
+        expect(SchemaToDbml.configuration).to have_attributes(expected_response)
       end
     end
 
     context 'when no file path is given' do
+      let(:perform) { SchemaToDbml.load_configuration_from_yaml }
+
       it 'loads the default configuration' do
-        perform = SchemaToDbml.load_configuration_from_yaml
-        expect(perform).to have_attributes(expected_default_response)
+        perform
+        expect(SchemaToDbml.configuration).to have_attributes(expected_default_response)
       end
     end
 
@@ -56,7 +62,7 @@ RSpec.describe SchemaToDbml do
       let(:file_path) { 'invalid_path' }
 
       it 'raises FileNotFoundError' do
-        expect { perform }.to raise_error(Errors::YamlFileNotFoundError)
+        expect { perform }.to raise_error(Errors::ConfigurationFileNotFoundError)
       end
     end
   end
