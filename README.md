@@ -1,4 +1,3 @@
-
 # SchemaToDbml
 
 SchemaToDbml is a gem that generates a DBML (Database Markup Language) content from a Rails application schema.rb file. With SchemaToDbml, you can easily visualize your application's database schema in a clean and organized way.
