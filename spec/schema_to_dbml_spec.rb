@@ -45,6 +45,7 @@ RSpec.describe SchemaToDbml do
 
       it 'uses default primary key' do
         perform
+
         expect(SchemaToDbml.configuration).to have_attributes(expected_response)
       end
     end
@@ -54,6 +55,7 @@ RSpec.describe SchemaToDbml do
 
       it 'loads the default configuration' do
         perform
+
         expect(SchemaToDbml.configuration).to have_attributes(expected_default_response)
       end
     end
