@@ -31,7 +31,7 @@ RSpec.describe BuildDbmlContent do
   describe '#build' do
     it 'returns the expected DBML content' do
       expected_dbml_content = [
-        "Project TestProject {\n  database_type: PostgreSQL\n  Note: 'TestNotes'\n}",
+        "Project TestProject {\n  database_type: 'PostgreSQL'\n  Note: 'TestNotes'\n}",
         'Table users { id integer [pk] name varchar }',
         'Ref: users.id < orders.user_id',
         custom_dbml_content

@@ -19,7 +19,7 @@ class BuildDbmlContent
 
   def project_header
     header = "Project #{project_name} {\n"
-    header += "  database_type: #{custom_database_type}\n"
+    header += "  database_type: '#{custom_database_type}'\n"
     header += "  Note: '#{custom_project_notes}'\n"
     header += '}'
     header

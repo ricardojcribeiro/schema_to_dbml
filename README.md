@@ -1,3 +1,4 @@
+
 # SchemaToDbml
 
 SchemaToDbml is a gem that generates a DBML (Database Markup Language) content from a Rails application schema.rb file. With SchemaToDbml, you can easily visualize your application's database schema in a clean and organized way.
@@ -44,42 +45,64 @@ This will output the generated DBML content.
 ## Custom Configuration
 
 If you want to customize the DBML content, you can create a YAML configuration file with your desired properties.
-By default, the SchemaToDbml will try to load the configuration from `schema_to_dbml/configs/custom_config.yml`.
-
-Here's an example of the configuration file:
+By default, the SchemaToDbml will load the below default configuration
 
 ```yaml
-custom_project_name: 'My Project'
-custom_database_type: 'PostgreSQL'
-custom_project_notes: 'This is my project.'
-custom_primary_key: 'id [pk]'
+custom_project_name: 'dbml_database_definition'
+custom_database_type: "'PostgreSQL'"
+custom_project_notes: |
+  # My Project Notes
+  This is a **project** that documents the database. Here are some key points:
+
+  - Utilizes the custom primary key for better indexing
+  - Specifies the appropriate database type (e.g., PostgreSQL)
+  - Provides meaningful project information and descriptions
+custom_primary_key: "id integer [pk, unique, note: 'Unique identifier and primary key']"
+custom_dbml_content: ''
 ```
 
 You can change the properties as you want. After that, you can load the configuration by calling:
 
 ```ruby
-SchemaToDbml.load_configuration_from_yaml('/path/to/your/custom_config.yml')
+SchemaToDbml.load_configuration_from_yaml(file_path: '/path/to/your/custom_config.yml')
 ```
 
-Or you can pass the configuration directly:
+Example of custom yaml configurations:
 
 ```ruby
-config = Configuration.new
-config.custom_project_name = 'My Project'
-config.custom_database_type = 'PostgreSQL'
-config.custom_project_notes = 'This is my project.'
-config.custom_primary_key = 'id'
-
-SchemaToDbml.configure(config)
+custom_database_type: 'PostgreSQL'
+custom_project_name: 'my_project_database'
+custom_project_notes: |
+  # My Project Database
+  This database is designed to support the operations of my project, a leading platform on my core business
+custom_dbml_content: |
+  enum object_status {
+    created [note: 'Initial status']
+    pending  
+    finished
+    cancelled
+  }
+  TableGroup my_table_group {
+    table_1
+    table_2
+    table_3
+  }
 ```
 
 After that, you can use the SchemaToDbml to generate the DBML content as usual.
 
 ## Development
 
+
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle install`.
+
+For proposing changes, create a new branch and make your changes there. Do not change the version number in `version.rb`.  After you've done your changes, open a new Pull Request (PR) for your changes to be reviewed.
+
+The maintainers will review your PR. If approved, they will update the version number in `version.rb` and run `bundle exec rake release`. This will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org/).
+
+Remember, direct changes to the version number and releases are not allowed. All changes should go through a Pull Request and should be approved by the maintainers.
 
 ## Contributing
 
@@ -91,4 +114,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the SchemaToDbml project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/schema_to_dbml/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the SchemaToDbml project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/ricardojcribeiro/schema_to_dbml/blob/develop/CODE_OF_CONDUCT.md).
