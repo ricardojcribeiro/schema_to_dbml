@@ -6,6 +6,7 @@ RSpec.describe Configuration do
     it { is_expected.to respond_to(:custom_database_type) }
     it { is_expected.to respond_to(:custom_project_name) }
     it { is_expected.to respond_to(:custom_project_notes) }
+    it { is_expected.to respond_to(:custom_dbml_content) }
   end
 
   describe 'default values' do
@@ -23,6 +24,10 @@ RSpec.describe Configuration do
 
     it 'has a default value of nil for custom_project_notes' do
       expect(subject.custom_project_notes).to be_nil
+    end
+
+    it 'has a default value of nil for custom_dbml_content' do
+      expect(subject.custom_dbml_content).to be_nil
     end
   end
 
@@ -45,6 +50,11 @@ RSpec.describe Configuration do
     it 'can set custom_project_notes' do
       subject.custom_project_notes = 'My project notes'
       expect(subject.custom_project_notes).to eq('My project notes')
+    end
+
+    it 'can set custom_dbml_content' do
+      subject.custom_dbml_content = 'My custom DBML content'
+      expect(subject.custom_dbml_content).to eq('My custom DBML content')
     end
   end
 end

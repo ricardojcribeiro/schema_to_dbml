@@ -9,6 +9,7 @@ end
 require 'byebug'
 require 'schema_to_dbml'
 require_relative '../lib/schema_to_dbml/errors/schema_file_not_found_error'
+require_relative '../lib/schema_to_dbml/errors/configuration_file_not_found_error'
 require_relative '../spec/lib/schema_to_dbml/support/schema_converter_spec_helper'
 require_relative '../spec/lib/schema_to_dbml/support/constants_spec_helper'
 require_relative '../spec/lib/schema_to_dbml/support/final_dbml_content_spec_helper'

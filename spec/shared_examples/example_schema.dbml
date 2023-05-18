@@ -2,7 +2,7 @@ Table users {
   id bigint [pk, increment]
   name string [not null]  // Name of the user
   email string [not null]  // Email of the user
-  password_digest string [not null]  // Encrypted password of the user
+  password string [not null]  // Encrypted password
   tags text [array]
   created_at datetime [not null]  // Timestamp of when the user was created
   updated_at datetime [not null]  // Timestamp of when the user was last updated

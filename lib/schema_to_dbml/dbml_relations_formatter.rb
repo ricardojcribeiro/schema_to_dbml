@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'active_support/inflector'
+
 class DbmlRelationsFormatter
   # Formats a database relationship for a DBML file
   #
@@ -21,26 +23,17 @@ class DbmlRelationsFormatter
 
   private
 
-  def default_foreign_key_column(to_table)
-    "#{singularize(to_table)}_id"
-  end
-
   def generate_reference_name(from_table, to_table, column)
     ref_name = "fk_rails_#{from_table}_#{to_table}"
     ref_name += "_#{column}" if column != default_foreign_key_column(to_table)
     ref_name
   end
 
-  def build_reference_string(ref_name, from_table, column, to_table)
-    "Ref #{ref_name}:#{from_table}.#{column} - #{to_table}.id"
+  def default_foreign_key_column(to_table)
+    "#{to_table.singularize}_id"
   end
 
-  # Singularizes a word
-  #
-  # @param word [String] the word to singularize
-  #
-  # @return [String] the singularized word
-  def singularize(word)
-    word.sub(/(?:([^aeiouy])y|s)$/, '\1').sub(/ies$/, 'y')
+  def build_reference_string(ref_name, from_table, column, to_table)
+    "Ref #{ref_name}:#{from_table}.#{column} - #{to_table}.id"
   end
 end

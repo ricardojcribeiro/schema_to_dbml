@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'default_field_formatter_helper'
+
 module Formatters
   module FieldsFormatter
+    include DefaultFieldFormatterHelper
     TYPE_MAPPER = {
       string: 'varchar',
       integer: 'int',
@@ -22,7 +25,11 @@ module Formatters
     def format_default(default:)
       return '' if default.to_s.empty?
 
-      "default: #{default}"
+      DEFAULT_PATTERNS.each do |pattern, replacement|
+        default = default.gsub(pattern, replacement)
+      end
+
+      default
     end
 
     def format_null(null:)
