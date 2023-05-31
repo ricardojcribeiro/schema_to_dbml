@@ -35,11 +35,13 @@ require 'schema_to_dbml'
 # Load configuration from default file
 SchemaToDbml.configuration
 
+# This will output the generated DBML content
 dbml_content = SchemaToDbml.new.convert(schema: 'db/schema.rb')
 puts dbml_content
-```
 
-This will output the generated DBML content.
+# This will generate the file (db/schema.dbml) with the above content
+SchemaToDbml.new.generate(schema: 'db/schema.rb')
+```
 
 ## Custom Configuration
 
@@ -58,6 +60,7 @@ custom_project_notes: |
   - Provides meaningful project information and descriptions
 custom_primary_key: "id integer [pk, unique, note: 'Unique identifier and primary key']"
 custom_dbml_content: ''
+custom_dbml_file_path: 'db/schema.dbml'
 ```
 
 You can change the properties as you want. After that, you can load the configuration by calling:
