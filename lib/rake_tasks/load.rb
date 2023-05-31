@@ -1,4 +1,4 @@
-require 'rake' unless defined?(Rake)
+require 'rake'
 
 Dir[File.join(File.dirname(__FILE__), '**/*.rake')].each do |rake|
   load rake
