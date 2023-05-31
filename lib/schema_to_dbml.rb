@@ -43,6 +43,12 @@ class SchemaToDbml
     @schema_converter = schema_converter
   end
 
+  def generate(schema:)
+    content = convert(schema:)
+
+    File.write(self.class.configuration.custom_dbml_file_path, content)
+  end
+
   def convert(schema:)
     converted = schema_converter.convert(schema_content: schema_content(schema))
 
