@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20_230_405_123_456) do
     t.string "email", null: false, comment: "Email of the user"
     t.string "password",  default: -> { "(now() + 'P1Y'::interval)" }, null: false, comment: "Encrypted password"
     t.text "tags", array: true
-    t.datetime "created_at", null: false, comment: "Timestamp of when the user was created"
-    t.datetime "updated_at", null: false, comment: "Timestamp of when the user was last updated"
+    t.datetime "created_at", precision: 6, null: false, comment: "Timestamp of when the user was created"
+    t.datetime "updated_at", precision: 6, null: false, comment: "Timestamp of when the user was last updated"
   end
 
   create_table "posts", comment: "Represents a blog post created by a user" do |t|
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20_230_405_123_456) do
     t.jsonb "context", default: {}
     t.text "internal_description", comment: "Internal description"
     t.bigint "user_id", null: false, comment: "Foreign key of the user who created the post"
-    t.datetime "created_at", null: false, comment: "Timestamp of when the post was created"
-    t.datetime "updated_at", null: false, comment: "Timestamp of when the post was last updated"
+    t.datetime "created_at", precision: 6, null: false, comment: "Timestamp of when the post was created"
+    t.datetime "updated_at", precision: 6, null: false, comment: "Timestamp of when the post was last updated"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20_230_405_123_456) do
     t.text "content", null: false, comment: "Content of the comment"
     t.bigint "user_id", null: false, comment: "Foreign key of the user who created the comment"
     t.bigint "post_id", null: false, comment: "Foreign key of the post that the comment belongs to"
-    t.datetime "created_at", null: false, comment: "Timestamp of when the comment was created"
-    t.datetime "updated_at", null: false, comment: "Timestamp of when the comment was last updated"
+    t.datetime "created_at", precision: 6, null: false, comment: "Timestamp of when the comment was created"
+    t.datetime "updated_at", precision: 6, null: false, comment: "Timestamp of when the comment was last updated"
     t.index ["post_id"], name: "index_comments_on_post_id", unique: true
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
