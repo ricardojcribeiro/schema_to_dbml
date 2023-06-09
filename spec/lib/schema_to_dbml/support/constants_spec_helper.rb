@@ -16,7 +16,7 @@ module ConstantsSpecHelper
           { type: 'string', name: 'title', default: "default: \"General Title\"", null: 'null: false', comment: 'Title of the post', precision: nil, array: nil },
           { type: 'text', name: 'content', default: nil, null: 'null: false', comment: 'Content of the post', precision: nil, array: nil },
           { type: 'jsonb', name: 'context', default: "default: {}", null: nil, comment: nil, precision: nil, array: nil },
-          { type: 'text', name: 'internal_description', default: nil, null: nil, comment: 'Internal description', precision: nil, array: nil },
+          { type: 'text', name: 'internal_description', default: nil, null: nil, comment: "Internal description with 'quotes'", precision: nil, array: nil },
           { type: 'bigint', name: 'user_id', default: nil, null: 'null: false', comment: 'Foreign key of the user who created the post', precision: nil,
             array: nil },
           { type: 'datetime', name: 'created_at', default: nil, null: 'null: false', comment: 'Timestamp of when the post was created', precision: nil,
