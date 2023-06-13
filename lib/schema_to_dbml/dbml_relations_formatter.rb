@@ -17,7 +17,7 @@ class DbmlRelationsFormatter
     ref_name = generate_reference_name(from_table, to_table, column)
     ref = build_reference_string(ref_name, from_table, column, to_table)
 
-    ref += " [delete: #{on_delete}]" if on_delete
+    format_on_delete(ref, on_delete)
     ref
   end
 
@@ -25,7 +25,7 @@ class DbmlRelationsFormatter
 
   def generate_reference_name(from_table, to_table, column)
     ref_name = "fk_rails_#{from_table}_#{to_table}"
-    ref_name += "_#{column}" if column != default_foreign_key_column(to_table)
+    ref_name << "_#{column}" if column != default_foreign_key_column(to_table)
     ref_name
   end
 
@@ -35,5 +35,12 @@ class DbmlRelationsFormatter
 
   def build_reference_string(ref_name, from_table, column, to_table)
     "Ref #{ref_name}:#{from_table}.#{column} - #{to_table}.id"
+  end
+
+  def format_on_delete(ref, on_delete)
+    return unless on_delete
+
+    on_delete = 'set null' if on_delete == 'nullify'
+    ref << " [delete: #{on_delete}]"
   end
 end
