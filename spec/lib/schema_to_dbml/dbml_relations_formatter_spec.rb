@@ -16,5 +16,10 @@ RSpec.describe DbmlRelationsFormatter do
       expect(subject.format(from_table: 'comments', to_table: 'posts', column: nil, on_delete: 'cascade'))
         .to eq('Ref fk_rails_comments_posts:comments.post_id - posts.id [delete: cascade]')
     end
+
+    it 'formats the relation string with on_delete option' do
+      expect(subject.format(from_table: 'comments', to_table: 'posts', column: nil, on_delete: 'nullify'))
+        .to eq('Ref fk_rails_comments_posts:comments.post_id - posts.id [delete: set null]')
+    end
   end
 end
