@@ -41,7 +41,7 @@ module Formatters
     def format_comment(comment:)
       return '' if comment.to_s.empty?
 
-      "note: '#{comment}'"
+      "note: '#{comment.gsub("'", "\\\\'")}'"
     end
   end
 end

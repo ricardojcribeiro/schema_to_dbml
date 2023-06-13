@@ -25,7 +25,7 @@ Table posts {
   title varchar [default: 'General Title',not null,note: 'Title of the post']
   content text [not null,note: 'Content of the post']
   context jsonb [default: '{}']
-  internal_description text [note: 'Internal description']
+  internal_description text [note: 'Internal description with \'quotes\'']
   user_id bigint [not null,note: 'Foreign key of the user who created the post']
   created_at timestamp [not null,note: 'Timestamp of when the post was created']
   updated_at timestamp [not null,note: 'Timestamp of when the post was last updated']
