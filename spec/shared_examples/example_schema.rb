@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20_230_405_123_456) do
     t.string "title", default: "General Title", null: false, comment: "Title of the post"
     t.text "content", null: false, comment: "Content of the post"
     t.jsonb "context", default: {}
-    t.text "internal_description", comment: "Internal description"
+    t.text "internal_description", comment: "Internal description with 'quotes'"
     t.bigint "user_id", null: false, comment: "Foreign key of the user who created the post"
     t.datetime "created_at", null: false, comment: "Timestamp of when the post was created"
     t.datetime "updated_at", null: false, comment: "Timestamp of when the post was last updated"
