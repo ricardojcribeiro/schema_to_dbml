@@ -69,9 +69,6 @@ Style/RedundantAssignment:
 Style/RedundantFetchBlock:
   Enabled: true
 
-Style/Documentation:
-  Enabled: false
-
 Style/MethodCallWithArgsParentheses:
   Enabled: false
  
