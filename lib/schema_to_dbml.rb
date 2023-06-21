@@ -8,6 +8,7 @@ require_relative 'schema_to_dbml/errors/schema_file_not_found_error'
 require_relative 'schema_to_dbml/errors/configuration_file_not_found_error'
 require_relative 'schema_to_dbml/schema_converter'
 require_relative 'schema_to_dbml/version'
+require_relative 'rake_tasks/load'
 
 class SchemaToDbml
   DEFAULT_CONFIG_FILE = File.join(__dir__, 'schema_to_dbml/configs/custom_config.yml')
@@ -41,6 +42,12 @@ class SchemaToDbml
   )
     @build_dbml_content = build_dbml_content
     @schema_converter = schema_converter
+  end
+
+  def generate(schema:)
+    content = convert(schema:)
+
+    File.write(self.class.configuration.custom_dbml_file_path, content)
   end
 
   def convert(schema:)

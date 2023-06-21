@@ -27,6 +27,39 @@ RSpec.describe SchemaToDbml do
     end
   end
 
+  describe '#generate' do
+    let(:schema_path) { "#{EXAMPLES_PATH}/example_schema.rb" }
+    let(:expected_dbml_content) { File.read("#{EXAMPLES_PATH}/example_schema.dbml") }
+    let(:perform) { subject.generate(schema: schema_path) }
+
+    before do
+      SchemaToDbml.load_configuration_from_yaml
+    end
+
+    context 'when schema file exists' do
+      let(:dbml_file_path) { 'generated.dbml' }
+
+      before do
+        SchemaToDbml.configuration.custom_dbml_file_path = dbml_file_path
+      end
+      after { FileUtils.rm_rf(dbml_file_path) }
+
+      it 'creates expected DBML file' do
+        perform
+
+        expect(FileUtils.compare_file(dbml_file_path, "#{EXAMPLES_PATH}/example_final_dbml_content.dbml")).to eq(true)
+      end
+    end
+
+    context 'when schema file does not exist' do
+      let(:schema_path) { 'invalid_path' }
+
+      it 'raises SchemaFileNotFoundError' do
+        expect { perform }.to raise_error(Errors::SchemaFileNotFoundError)
+      end
+    end
+  end
+
   describe '.load_configuration_from_yaml' do
     let(:default_config_path) { SchemaToDbml::DEFAULT_CONFIG_FILE }
     let(:file_path) { nil }
