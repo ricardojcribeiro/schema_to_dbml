@@ -13,7 +13,7 @@ describe SchemaConverter do
         expect(perform[:tables].size).to eq(3)
       end
 
-      it 'matches the ytables array' do
+      it 'matches the tables array' do
         expect(perform[:tables]).to eq(expected_tables_array)
       end
     end

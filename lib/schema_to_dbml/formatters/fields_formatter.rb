@@ -5,6 +5,10 @@ require_relative 'default_field_formatter_helper'
 module Formatters
   module FieldsFormatter
     include DefaultFieldFormatterHelper
+    COMMENT_MAPPER = [
+      { from: "'", to: "\\\\'" },
+      { from: '\"', to: '"' }
+    ].freeze
     TYPE_MAPPER = {
       string: 'varchar',
       integer: 'int',
@@ -41,7 +45,12 @@ module Formatters
     def format_comment(comment:)
       return '' if comment.to_s.empty?
 
-      "note: '#{comment.gsub("'", "\\\\'")}'"
+      note = comment.dup
+      COMMENT_MAPPER.each do |mapper|
+        note.gsub!(mapper[:from], mapper[:to])
+      end
+
+      "note: '#{note}'"
     end
   end
 end
