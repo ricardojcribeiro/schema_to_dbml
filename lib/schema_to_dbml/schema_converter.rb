@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_relative 'helpers/constants'
-require_relative './dbml_tables_formatter'
-require_relative './dbml_relations_formatter'
+require_relative 'dbml_tables_formatter'
+require_relative 'dbml_relations_formatter'
 
 class SchemaConverter
   include Helpers::Constants
