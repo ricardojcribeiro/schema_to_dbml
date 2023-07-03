@@ -17,6 +17,7 @@ RSpec.describe DbmlTablesFormatter do
         t.string "name", null: false, comment: "Name of the user"
         t.integer "age", default: 0
         t.decimal "rating", precision: 3
+        t.string "gender", limit: 1
         t.string "password",  default: -> { "(now() + 'P1Y'::interval)" }, null: false, comment: "Encrypted password"
         t.jsonb "context", default: {}
         t.text "tags", array: true
@@ -32,6 +33,7 @@ RSpec.describe DbmlTablesFormatter do
           name varchar [not null,note: 'Name of the user']
           age int [default: 0]
           rating decimal
+          gender varchar(1)
           password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
           context jsonb [default: '{}']
           tags text[]
@@ -69,6 +71,7 @@ RSpec.describe DbmlTablesFormatter do
             name varchar [not null,note: 'Name of the user']
             age int [default: 0]
             rating decimal
+            gender varchar(1)
             password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
             context jsonb [default: '{}']
             tags text[]

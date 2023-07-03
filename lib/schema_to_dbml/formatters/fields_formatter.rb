@@ -16,13 +16,13 @@ module Formatters
       datetime: 'timestamp'
     }.freeze
 
-    def format_type(type:, array:)
+    def format_type(type:, array:, limit:)
       return '' if type.to_s.empty?
 
       parsed = TYPE_MAPPER[type.to_sym] || type.to_s
 
       return "#{parsed}[]" if array == 'true'
-
+      return "#{parsed}(#{limit})" if limit
       parsed
     end
 

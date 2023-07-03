@@ -4,9 +4,10 @@ RSpec.describe Formatters::FieldsFormatter do
   include Formatters::FieldsFormatter
 
   describe '#format_type' do
-    let(:perform) { format_type(type:, array:) }
+    let(:perform) { format_type(type:, array:, limit:) }
     let(:type) { nil }
     let(:array) { 'false' }
+    let(:limit) { nil }
 
     context 'when type is nil' do
       it 'returns an empty string' do

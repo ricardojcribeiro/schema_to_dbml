@@ -7,6 +7,7 @@ module ConstantsSpecHelper
         [
           { type: 'string', name: 'name', default: nil, null: 'null: false', comment: 'Name of the user', precision: nil, array: nil },
           { type: 'string', name: 'email', default: nil, null: 'null: false', comment: 'Email of the user', precision: nil, array: nil },
+          { type: 'string', name: 'gender', default: nil, null: nil, comment: nil, precision: nil, array: nil, limit: "1" },
           { type: 'string', name: 'password', default: "default: -> { \"(now() + 'P1Y'::interval)\" }", null: 'null: false', comment: 'Encrypted password', precision: nil, array: nil },
           { type: 'text', name: 'tags', default: nil, null: nil, comment: nil, precision: nil, array: "true" },
           { type: 'datetime', name: 'created_at', default: nil, null: 'null: false', comment: 'Timestamp of when the user was created', precision: '6',
