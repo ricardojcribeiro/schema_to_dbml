@@ -21,6 +21,7 @@ module Helpers
         (?:,\s+comment:\s+"(?<comment>[^"\\]*(?:\\.[^"\\]*)*)")?
         (?:,\s+precision:\s+(?<precision>\d+))?
         (?:,\s+array:\s+(?<array>true|false))?
+        (?:,\s+limit:\s+(?<limit>\d+))?
       )*
     /x
 

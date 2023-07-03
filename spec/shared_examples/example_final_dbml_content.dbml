@@ -13,6 +13,7 @@ Table users {
   id integer [pk, unique, note: 'Unique identifier and primary key']
   name varchar [not null,note: 'Name of the user']
   email varchar [not null,note: 'Email of the user']
+  gender varchar(1)
   password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
   tags text[]
   created_at timestamp [not null,note: 'Timestamp of when the user was created']
