@@ -5,6 +5,10 @@ require_relative 'default_field_formatter_helper'
 module Formatters
   module FieldsFormatter
     include DefaultFieldFormatterHelper
+    COMMENT_MAPPER = [
+      { from: "'", to: "\\\\'" },
+      { from: '\"', to: '"' }
+    ].freeze
     TYPE_MAPPER = {
       string: 'varchar',
       integer: 'int',
@@ -12,12 +16,13 @@ module Formatters
       datetime: 'timestamp'
     }.freeze
 
-    def format_type(type:, array:)
+    def format_type(type:, array:, limit:)
       return '' if type.to_s.empty?
 
       parsed = TYPE_MAPPER[type.to_sym] || type.to_s
 
       return "#{parsed}[]" if array == 'true'
+      return "#{parsed}(#{limit})" if limit
 
       parsed
     end
@@ -41,7 +46,12 @@ module Formatters
     def format_comment(comment:)
       return '' if comment.to_s.empty?
 
-      "note: '#{comment.gsub("'", "\\\\'")}'"
+      note = comment.dup
+      COMMENT_MAPPER.each do |mapper|
+        note.gsub!(mapper[:from], mapper[:to])
+      end
+
+      "note: '#{note}'"
     end
   end
 end

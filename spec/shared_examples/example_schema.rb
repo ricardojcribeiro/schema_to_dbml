@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20_230_405_123_456) do
   create_table "users", comment: "Represents a user who can create blog posts and comments" do |t|
     t.string "name", null: false, comment: "Name of the user"
     t.string "email", null: false, comment: "Email of the user"
+    t.string "gender", limit: 1
     t.string "password",  default: -> { "(now() + 'P1Y'::interval)" }, null: false, comment: "Encrypted password"
     t.text "tags", array: true
     t.datetime "created_at", precision: 6, null: false, comment: "Timestamp of when the user was created"
@@ -26,7 +27,7 @@ ActiveRecord::Schema.define(version: 20_230_405_123_456) do
     t.string "title", default: "General Title", null: false, comment: "Title of the post"
     t.text "content", null: false, comment: "Content of the post"
     t.jsonb "context", default: {}
-    t.text "internal_description", comment: "Internal description with 'quotes'"
+    t.text "internal_description", comment: "Internal \"description\" with 'quotes'"
     t.bigint "user_id", null: false, comment: "Foreign key of the user who created the post"
     t.datetime "created_at", precision: 6, null: false, comment: "Timestamp of when the post was created"
     t.datetime "updated_at", precision: 6, null: false, comment: "Timestamp of when the post was last updated"

@@ -22,11 +22,11 @@ class DbmlTablesFormatter
   def build_columns(parsed_columns)
     columns = []
 
-    parsed_columns.scan(COLUMNS_REGEXP).each do |type, name, default, null, comment, _precision, array|
+    parsed_columns.scan(COLUMNS_REGEXP).each do |type, name, default, null, comment, _precision, array, limit|
       formatted_comment = format_comment(comment:)
       formatted_default = format_default(default:)
       formatted_null = format_null(null:)
-      formatted_type = format_type(type:, array:)
+      formatted_type = format_type(type:, array:, limit:)
 
       final_values = [formatted_default, formatted_null, formatted_comment].compact.reject(&:empty?)
       columns << build_line(name, formatted_type, final_values)

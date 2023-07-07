@@ -13,6 +13,7 @@ Table users {
   id integer [pk, unique, note: 'Unique identifier and primary key']
   name varchar [not null,note: 'Name of the user']
   email varchar [not null,note: 'Email of the user']
+  gender varchar(1)
   password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
   tags text[]
   created_at timestamp [not null,note: 'Timestamp of when the user was created']
@@ -25,7 +26,7 @@ Table posts {
   title varchar [default: 'General Title',not null,note: 'Title of the post']
   content text [not null,note: 'Content of the post']
   context jsonb [default: '{}']
-  internal_description text [note: 'Internal description with \'quotes\'']
+  internal_description text [note: 'Internal "description" with \'quotes\'']
   user_id bigint [not null,note: 'Foreign key of the user who created the post']
   created_at timestamp [not null,note: 'Timestamp of when the post was created']
   updated_at timestamp [not null,note: 'Timestamp of when the post was last updated']
