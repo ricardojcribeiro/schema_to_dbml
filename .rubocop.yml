@@ -76,4 +76,4 @@ Gemspec/DevelopmentDependencies:
   Enabled: false
 
 Metrics/ParameterLists:
-  Max: 7
+  Max: 8
