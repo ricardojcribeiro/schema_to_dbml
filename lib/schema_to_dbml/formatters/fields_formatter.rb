@@ -23,6 +23,7 @@ module Formatters
 
       return "#{parsed}[]" if array == 'true'
       return "#{parsed}(#{limit})" if limit
+
       parsed
     end
 
