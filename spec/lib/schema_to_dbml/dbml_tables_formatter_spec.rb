@@ -92,18 +92,18 @@ RSpec.describe DbmlTablesFormatter do
 
       let(:expected_dbml) do
         <<~DBML.strip
-          Table users {
-          id integer [pk, unique, note: 'Unique identifier and primary key']
-          name varchar [not null,note: 'Name of the user']
-          age int [default: 0]
-          rating decimal
-          gender varchar(1)
-          password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
-          context jsonb [default: '{}']
-          tags text[]
-          email varchar [default: '']
-          active bool [default: true]
-        }
+            Table users {
+            id integer [pk, unique, note: 'Unique identifier and primary key']
+            name varchar [not null,note: 'Name of the user']
+            age int [default: 0]
+            rating decimal
+            gender varchar(1)
+            password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
+            context jsonb [default: '{}']
+            tags text[]
+            email varchar [default: '']
+            active bool [default: true]
+          }
         DBML
       end
 
