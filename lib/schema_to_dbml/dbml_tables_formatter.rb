@@ -48,7 +48,6 @@ class DbmlTablesFormatter
     dbml_table << "  #{custom_primary_key}\n"
     dbml_table << columns.join("\n")
     dbml_table << "\n  Note: '#{table_comment}'" unless table_comment.to_s.empty?
-    dbml_table << "\n  Tada: '#{table_comment}'" if table_comment == 'tada'
     dbml_table << "\n}"
     dbml_table
   end
