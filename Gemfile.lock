@@ -76,6 +76,7 @@ GEM
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
+    simplecov-lcov (0.8.0)
     simplecov_json_formatter (0.1.4)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -83,6 +84,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-23
   x86_64-darwin-22
   x86_64-linux
 
@@ -94,6 +96,7 @@ DEPENDENCIES
   rubocop
   schema_to_dbml!
   simplecov
+  simplecov-lcov
 
 BUNDLED WITH
    2.4.4
