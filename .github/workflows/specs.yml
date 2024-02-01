@@ -21,3 +21,10 @@ jobs:
     - name: Run tests
       run: |
         bundle exec rspec --require spec_helper --require schema_to_dbml
+    - name: Sync with undercover
+      run: |
+        REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
+        ruby -e "$(curl -s https://undercover-ci.com/uploader.rb)" -- \
+                        --repo ${{ github.repository }} \
+                        --commit ${{ github.workflow_sha }} \
+                        --lcov coverage/lcov/$REPO_NAME.lcov

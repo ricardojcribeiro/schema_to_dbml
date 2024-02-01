@@ -86,5 +86,30 @@ RSpec.describe DbmlTablesFormatter do
         expect(perform).to eq(expected_dbml)
       end
     end
+
+    context 'when table comment is empty' do
+      let(:table_comment) { nil }
+
+      let(:expected_dbml) do
+        <<~DBML.strip
+            Table users {
+            id integer [pk, unique, note: 'Unique identifier and primary key']
+            name varchar [not null,note: 'Name of the user']
+            age int [default: 0]
+            rating decimal
+            gender varchar(1)
+            password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
+            context jsonb [default: '{}']
+            tags text[]
+            email varchar [default: '']
+            active bool [default: true]
+          }
+        DBML
+      end
+
+      it 'does not return note section' do
+        expect(perform).to eq(expected_dbml)
+      end
+    end
   end
 end
