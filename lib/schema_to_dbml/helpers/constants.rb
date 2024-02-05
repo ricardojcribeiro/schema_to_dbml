@@ -2,6 +2,8 @@
 
 module Helpers
   module Constants
+    TAB = '  '
+
     TABLES_REGEXP = /
       create_table\s+"(?<table_name>\w+)"
       (?:,\s+comment:\s+"(?<comment>.*?)")?
@@ -23,6 +25,12 @@ module Helpers
         (?:,\s+array:\s+(?<array>true|false))?
         (?:,\s+limit:\s+(?<limit>\d+))?
       )*
+    /x
+
+    INDEXES_REGEXP = /
+      t\.index\s+\[(?<columns>[^\]]+)\]
+      (?:,\s+name:\s+"(?<name>[^"\\]*(?:\\.[^"\\]*)*)")?
+      (?:,\s+unique:\s+(?<unique>true|false))?
     /x
 
     RELATIONS_REGEXP = /
