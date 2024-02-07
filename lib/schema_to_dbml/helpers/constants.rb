@@ -8,7 +8,7 @@ module Helpers
       (?:,\s+force:\s+:cascade)?
       \s+do\s+\|t\|
       \n
-      (?<table_content>(?:.*?)(?:".*?")*.*?)
+      (?<table_attributes>(?:.*?)(?:".*?")*.*?)
       (?<=\n)
       \s+end
     /xm

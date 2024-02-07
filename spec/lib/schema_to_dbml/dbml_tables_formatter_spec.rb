@@ -12,7 +12,7 @@ RSpec.describe DbmlTablesFormatter do
   describe '#format' do
     let(:table_name) { 'users' }
     let(:table_comment) { 'Represents a user who can create blog posts and comments' }
-    let(:parsed_columns) do
+    let(:table_attributes) do
       <<~COLUMNS
         t.string "name", null: false, comment: "Name of the user"
         t.integer "age", default: 0
@@ -45,7 +45,7 @@ RSpec.describe DbmlTablesFormatter do
     end
 
     let(:perform) do
-      subject.format(table_name:, table_comment:, parsed_columns:)
+      subject.format(table_name:, table_comment:, table_attributes:)
     end
 
     before do
