@@ -18,8 +18,8 @@ class SchemaConverter
   def convert(schema_content:)
     tables = []
     relations = []
-    schema_content.scan(TABLES_REGEXP).each do |table_name, table_comment, columns|
-      tables << dbml_tables_formatter.format(table_name:, table_comment:, parsed_columns: columns)
+    schema_content.scan(TABLES_REGEXP).each do |table_name, table_comment, table_attributes|
+      tables << dbml_tables_formatter.format(table_name:, table_comment:, table_attributes:)
     end
 
     schema_content.scan(RELATIONS_REGEXP).each do |from_table, to_table, column, on_delete|
