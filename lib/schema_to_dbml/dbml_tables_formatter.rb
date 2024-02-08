@@ -11,18 +11,18 @@ class DbmlTablesFormatter
     @configuration = configuration
   end
 
-  def format(table_name:, table_comment:, parsed_columns:)
-    columns = build_columns(parsed_columns)
+  def format(table_name:, table_comment:, table_attributes:)
+    columns = build_columns(table_attributes)
 
     format_dbml(table_name, columns, table_comment)
   end
 
   private
 
-  def build_columns(parsed_columns)
+  def build_columns(table_attributes)
     columns = []
 
-    parsed_columns.scan(COLUMNS_REGEXP).each do |type, name, default, null, comment, _precision, array, limit|
+    table_attributes.scan(COLUMNS_REGEXP).each do |type, name, default, null, comment, _precision, array, limit|
       formatted_comment = format_comment(comment:)
       formatted_default = format_default(default:)
       formatted_null = format_null(null:)
