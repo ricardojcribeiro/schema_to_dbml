@@ -23,6 +23,7 @@ RSpec.describe DbmlTablesFormatter do
         t.text "tags", array: true
         t.string "email", default: ''
         t.boolean "active", default: true
+        t.index ["email"], name: "index_users_on_email", unique: true
       COLUMNS
     end
 
@@ -39,6 +40,9 @@ RSpec.describe DbmlTablesFormatter do
           tags text[]
           email varchar [default: '']
           active bool [default: true]
+          indexes {
+            (email) [unique, name: 'index_users_on_email']
+          }
           Note: 'Represents a user who can create blog posts and comments'
         }
       DBML
@@ -77,6 +81,9 @@ RSpec.describe DbmlTablesFormatter do
             tags text[]
             email varchar [default: '']
             active bool [default: true]
+            indexes {
+              (email) [unique, name: 'index_users_on_email']
+            }
             Note: 'Represents a user who can create blog posts and comments'
           }
         DBML
@@ -103,6 +110,9 @@ RSpec.describe DbmlTablesFormatter do
             tags text[]
             email varchar [default: '']
             active bool [default: true]
+            indexes {
+              (email) [unique, name: 'index_users_on_email']
+            }
           }
         DBML
       end
