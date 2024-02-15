@@ -2,7 +2,7 @@ AllCops:
   TargetRubyVersion: 3.1.2
   Exclude:
     - spec/lib/schema_to_dbml/support/*
-    - spec/shared_examples/*
+    - spec/support/files/*
     - vendor/bundle/**/*
   NewCops: enable
 
