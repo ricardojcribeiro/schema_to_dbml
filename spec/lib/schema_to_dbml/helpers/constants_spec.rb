@@ -2,7 +2,7 @@
 
 RSpec.describe Helpers::Constants do
   include ConstantsSpecHelper
-  let(:file) { SUPPORT_FILES_PATH }
+
   let(:schema) { File.read("#{SUPPORT_FILES_PATH}/example_schema.rb") }
 
   describe 'TABLES_REGEXP' do
