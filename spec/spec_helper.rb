@@ -23,7 +23,7 @@ require_relative '../spec/lib/schema_to_dbml/support/schema_converter_spec_helpe
 require_relative '../spec/lib/schema_to_dbml/support/constants_spec_helper'
 require_relative '../spec/lib/schema_to_dbml/support/final_dbml_content_spec_helper'
 
-EXAMPLES_PATH = File.join(File.dirname(__FILE__), 'shared_examples')
+SUPPORT_FILES_PATH = File.join(File.dirname(__FILE__), 'support', 'files')
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

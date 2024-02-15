@@ -4,7 +4,7 @@ module FinalDbmlContentSpecHelper
   def self.included(base)
     base.class_eval do
       let(:final_dbml_content_file) do
-        File.open("#{EXAMPLES_PATH}/example_final_dbml_content.dbml")
+        File.open("#{SUPPORT_FILES_PATH}/example_final_dbml_content.dbml")
       end
 
       let(:final_dbml_content) { final_dbml_content_file.read }
