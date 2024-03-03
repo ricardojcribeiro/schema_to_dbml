@@ -13,9 +13,10 @@ RSpec.describe Helpers::Constants do
     end
 
     it 'matches the table name' do
-      expect(perform[0][0]).to eq('users')
-      expect(perform[1][0]).to eq('posts')
-      expect(perform[2][0]).to eq('comments')
+      result = perform
+      expect(result[0][0]).to eq('users')
+      expect(result[1][0]).to eq('posts')
+      expect(result[2][0]).to eq('comments')
     end
 
     it 'matches the table comment' do

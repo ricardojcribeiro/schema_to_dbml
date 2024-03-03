@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe BuildDbmlContent do
+  subject { described_class.new(configuration:) }
+
   let(:configuration) do
     instance_double(
       Configuration,
@@ -10,6 +12,7 @@ RSpec.describe BuildDbmlContent do
       custom_dbml_content:
     )
   end
+  let(:perform) { subject.build(converted:) }
   let(:converted) do
     {
       tables: ['Table users { id integer [pk] name varchar }'],
@@ -25,18 +28,17 @@ RSpec.describe BuildDbmlContent do
     }"
   end
 
-  subject { described_class.new(configuration:) }
-  let(:perform) { subject.build(converted:) }
-
   describe '#build' do
-    it 'returns the expected DBML content' do
-      expected_dbml_content = [
+    let(:expected_dbml_content) do
+      [
         "Project TestProject {\n  database_type: 'PostgreSQL'\n  Note: 'TestNotes'\n}",
         'Table users { id integer [pk] name varchar }',
         'Ref: users.id < orders.user_id',
         custom_dbml_content
       ].join("\n\n")
+    end
 
+    it 'returns the expected DBML content' do
       expect(perform).to eq(expected_dbml_content)
     end
   end

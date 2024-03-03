@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Formatters::FieldsFormatter do
-  include Formatters::FieldsFormatter
+  include described_class
 
   describe '#format_type' do
     let(:perform) { format_type(type:, array:, limit:) }
@@ -17,6 +17,7 @@ RSpec.describe Formatters::FieldsFormatter do
 
     context 'when type is string and array is false' do
       let(:type) { 'string' }
+
       it 'returns the type' do
         expect(perform).to eq('varchar')
       end
@@ -24,6 +25,7 @@ RSpec.describe Formatters::FieldsFormatter do
 
     context 'when type is boolean and array is false' do
       let(:type) { 'boolean' }
+
       it 'returns the type' do
         expect(perform).to eq('bool')
       end
@@ -31,6 +33,7 @@ RSpec.describe Formatters::FieldsFormatter do
 
     context 'when type is datetime and array is false' do
       let(:type) { 'datetime' }
+
       it 'returns the type' do
         expect(perform).to eq('timestamp')
       end
@@ -39,6 +42,7 @@ RSpec.describe Formatters::FieldsFormatter do
     context 'when type is integer and array is true' do
       let(:type) { 'integer' }
       let(:array) { 'true' }
+
       it 'returns the type with array brackets' do
         expect(perform).to eq('int[]')
       end
@@ -46,6 +50,7 @@ RSpec.describe Formatters::FieldsFormatter do
 
     context 'when type is not pre defined type' do
       let(:type) { 'text' }
+
       it 'returns the type' do
         expect(perform).to eq('text')
       end
@@ -54,6 +59,7 @@ RSpec.describe Formatters::FieldsFormatter do
     context 'when array is true and type is empty' do
       let(:type) { '' }
       let(:array) { 'true' }
+
       it 'returns an empty string' do
         expect(perform).to eq('')
       end
@@ -124,6 +130,7 @@ RSpec.describe Formatters::FieldsFormatter do
 
     context 'when null is blank' do
       let(:null) { '' }
+
       it 'returns an empty string' do
         expect(perform).to eq('')
       end
@@ -131,6 +138,7 @@ RSpec.describe Formatters::FieldsFormatter do
 
     context 'when null is present' do
       let(:null) { 'true' }
+
       it 'returns the formatted null string' do
         expect(perform).to eq('not null')
       end

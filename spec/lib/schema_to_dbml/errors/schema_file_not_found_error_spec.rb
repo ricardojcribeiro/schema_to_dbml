@@ -3,8 +3,10 @@
 RSpec.describe Errors::SchemaFileNotFoundError do
   describe '#initialize' do
     context 'when no message is provided' do
+      let(:error) { described_class.new }
+
       it 'sets a default message' do
-        expect(subject.message).to eq('schema.rb file not found.')
+        expect(error.message).to eq('schema.rb file not found.')
       end
     end
 

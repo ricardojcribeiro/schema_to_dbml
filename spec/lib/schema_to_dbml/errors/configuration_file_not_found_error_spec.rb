@@ -3,8 +3,10 @@
 RSpec.describe Errors::ConfigurationFileNotFoundError do
   describe '#initialize' do
     context 'when no message is provided' do
+      let(:error) { described_class.new }
+
       it 'sets a default message' do
-        expect(subject.message).to eq('Configuration file was not found')
+        expect(error.message).to eq('Configuration file was not found')
       end
     end
 
