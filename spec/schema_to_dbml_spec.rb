@@ -4,8 +4,7 @@ RSpec.describe SchemaToDbml do
   include FinalDbmlContentSpecHelper
 
   describe '#convert' do
-    let(:schema_path) { "#{EXAMPLES_PATH}/example_schema.rb" }
-    let(:expected_dbml_content) { File.read("#{EXAMPLES_PATH}/example_schema.dbml") }
+    let(:schema_path) { "#{SUPPORT_FILES_PATH}/example_schema.rb" }
     let(:perform) { subject.convert(schema: schema_path) }
 
     before do
@@ -28,8 +27,7 @@ RSpec.describe SchemaToDbml do
   end
 
   describe '#generate' do
-    let(:schema_path) { "#{EXAMPLES_PATH}/example_schema.rb" }
-    let(:expected_dbml_content) { File.read("#{EXAMPLES_PATH}/example_schema.dbml") }
+    let(:schema_path) { "#{SUPPORT_FILES_PATH}/example_schema.rb" }
     let(:perform) { subject.generate(schema: schema_path) }
 
     before do
@@ -47,7 +45,7 @@ RSpec.describe SchemaToDbml do
       it 'creates expected DBML file' do
         perform
 
-        expect(FileUtils.compare_file(dbml_file_path, "#{EXAMPLES_PATH}/example_final_dbml_content.dbml")).to eq(true)
+        expect(FileUtils.compare_file(dbml_file_path, "#{SUPPORT_FILES_PATH}/example_final_dbml_content.dbml")).to eq(true)
       end
     end
 
@@ -66,7 +64,7 @@ RSpec.describe SchemaToDbml do
     let(:perform) { SchemaToDbml.load_configuration_from_yaml(file_path:) }
 
     context 'when custom configuration file is missing primary key' do
-      let(:file_path) { "#{EXAMPLES_PATH}/custom_config_example.yml" }
+      let(:file_path) { "#{SUPPORT_FILES_PATH}/custom_config_example.yml" }
       let(:expected_response) do
         {
           custom_primary_key: "id integer [pk, unique, note: 'Unique identifier and primary key']",
