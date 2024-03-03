@@ -30,6 +30,9 @@ Table posts {
   user_id bigint [not null,note: 'Foreign key of the user who created the post']
   created_at timestamp [not null,note: 'Timestamp of when the post was created']
   updated_at timestamp [not null,note: 'Timestamp of when the post was last updated']
+  indexes {
+    (user_id) [name: 'index_posts_on_user_id']
+  }
   Note: 'Represents a blog post created by a user'
 }
 
@@ -40,6 +43,10 @@ Table comments {
   post_id bigint [not null,note: 'Foreign key of the post that the comment belongs to']
   created_at timestamp [not null,note: 'Timestamp of when the comment was created']
   updated_at timestamp [not null,note: 'Timestamp of when the comment was last updated']
+  indexes {
+    (post_id) [unique, name: 'index_comments_on_post_id']
+    (user_id) [name: 'index_comments_on_user_id']
+  }
   Note: 'Represents a comment created by a user on a specific blog post'
 }
 

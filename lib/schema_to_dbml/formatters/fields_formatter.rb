@@ -5,6 +5,7 @@ require_relative 'default_field_formatter_helper'
 module Formatters
   module FieldsFormatter
     include DefaultFieldFormatterHelper
+
     COMMENT_MAPPER = [
       { from: "'", to: "\\\\'" },
       { from: '\"', to: '"' }

@@ -4,12 +4,11 @@ RSpec.describe SchemaToDbml do
   include FinalDbmlContentSpecHelper
 
   describe '#convert' do
-    let(:schema_path) { "#{EXAMPLES_PATH}/example_schema.rb" }
-    let(:expected_dbml_content) { File.read("#{EXAMPLES_PATH}/example_schema.dbml") }
+    let(:schema_path) { "#{SUPPORT_FILES_PATH}/example_schema.rb" }
     let(:perform) { subject.convert(schema: schema_path) }
 
     before do
-      SchemaToDbml.load_configuration_from_yaml
+      described_class.load_configuration_from_yaml
     end
 
     context 'when schema file exists' do
@@ -28,26 +27,26 @@ RSpec.describe SchemaToDbml do
   end
 
   describe '#generate' do
-    let(:schema_path) { "#{EXAMPLES_PATH}/example_schema.rb" }
-    let(:expected_dbml_content) { File.read("#{EXAMPLES_PATH}/example_schema.dbml") }
+    let(:schema_path) { "#{SUPPORT_FILES_PATH}/example_schema.rb" }
     let(:perform) { subject.generate(schema: schema_path) }
 
     before do
-      SchemaToDbml.load_configuration_from_yaml
+      described_class.load_configuration_from_yaml
     end
 
     context 'when schema file exists' do
       let(:dbml_file_path) { 'generated.dbml' }
 
       before do
-        SchemaToDbml.configuration.custom_dbml_file_path = dbml_file_path
+        described_class.configuration.custom_dbml_file_path = dbml_file_path
       end
+
       after { FileUtils.rm_rf(dbml_file_path) }
 
       it 'creates expected DBML file' do
         perform
 
-        expect(FileUtils.compare_file(dbml_file_path, "#{EXAMPLES_PATH}/example_final_dbml_content.dbml")).to eq(true)
+        expect(FileUtils.compare_file(dbml_file_path, "#{SUPPORT_FILES_PATH}/example_final_dbml_content.dbml")).to be(true)
       end
     end
 
@@ -61,12 +60,12 @@ RSpec.describe SchemaToDbml do
   end
 
   describe '.load_configuration_from_yaml' do
-    let(:default_config_path) { SchemaToDbml::DEFAULT_CONFIG_FILE }
+    let(:default_config_path) { described_class::DEFAULT_CONFIG_FILE }
     let(:file_path) { nil }
-    let(:perform) { SchemaToDbml.load_configuration_from_yaml(file_path:) }
+    let(:perform) { described_class.load_configuration_from_yaml(file_path:) }
 
     context 'when custom configuration file is missing primary key' do
-      let(:file_path) { "#{EXAMPLES_PATH}/custom_config_example.yml" }
+      let(:file_path) { "#{SUPPORT_FILES_PATH}/custom_config_example.yml" }
       let(:expected_response) do
         {
           custom_primary_key: "id integer [pk, unique, note: 'Unique identifier and primary key']",
@@ -79,17 +78,17 @@ RSpec.describe SchemaToDbml do
       it 'uses default primary key' do
         perform
 
-        expect(SchemaToDbml.configuration).to have_attributes(expected_response)
+        expect(described_class.configuration).to have_attributes(expected_response)
       end
     end
 
     context 'when no file path is given' do
-      let(:perform) { SchemaToDbml.load_configuration_from_yaml }
+      let(:perform) { described_class.load_configuration_from_yaml }
 
       it 'loads the default configuration' do
         perform
 
-        expect(SchemaToDbml.configuration).to have_attributes(expected_default_response)
+        expect(described_class.configuration).to have_attributes(expected_default_response)
       end
     end
 
