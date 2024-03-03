@@ -62,12 +62,6 @@ RSpec.describe DbmlTablesFormatter do
 
     context 'when custom_primary_key is defined' do
       let(:custom_primary_key) { "custom_id varchar [pk, note: 'my custom id']" }
-      before do
-        SchemaToDbml.configuration.custom_primary_key = custom_primary_key
-      end
-
-      after { SchemaToDbml.configuration.custom_primary_key = "id integer [pk, unique, note: 'Unique identifier and primary key']" }
-
       let(:expected_dbml) do
         <<~DBML.strip
           Table users {
@@ -88,6 +82,12 @@ RSpec.describe DbmlTablesFormatter do
           }
         DBML
       end
+
+      before do
+        SchemaToDbml.configuration.custom_primary_key = custom_primary_key
+      end
+
+      after { SchemaToDbml.configuration.custom_primary_key = "id integer [pk, unique, note: 'Unique identifier and primary key']" }
 
       it 'formats the given custom orimary key' do
         expect(perform).to eq(expected_dbml)
