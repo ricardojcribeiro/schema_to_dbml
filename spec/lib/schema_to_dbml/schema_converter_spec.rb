@@ -3,7 +3,7 @@
 describe SchemaConverter do
   include SchemaConverterSpecHelper
 
-  let(:schema_content) { File.read("#{EXAMPLES_PATH}/example_schema.rb") }
+  let(:schema_content) { File.read("#{SUPPORT_FILES_PATH}/example_schema.rb") }
 
   describe '#convert' do
     let(:perform) { subject.convert(schema_content:) }
