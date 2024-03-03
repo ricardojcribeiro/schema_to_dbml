@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    schema_to_dbml (0.0.4)
+    schema_to_dbml (0.0.5)
       activesupport (>= 6.1.0)
 
 GEM
