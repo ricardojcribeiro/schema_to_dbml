@@ -1,3 +1,13 @@
 custom_project_name: 'custom_project_name'
 custom_database_type: "'custom_database'"
 custom_project_notes: 'custom_notes'
+custom_tables:
+  posts:
+    status:
+      type: 'post_status'
+custom_dbml_content: |
+  Enum post_status {
+    draft [note: 'The post is still being created and not yet published.']
+    published [note: 'The post is publicly visible and accessible to everyone.']
+    archived [note: 'The post is no longer publicly visible, but it's still saved in the system for reference or historical purposes']
+  }

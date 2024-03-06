@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20_230_405_123_456) do
     t.jsonb "context", default: {}
     t.text "internal_description", comment: "Internal \"description\" with 'quotes'"
     t.bigint "user_id", null: false, comment: "Foreign key of the user who created the post"
+    t.string "status", default: 'draft', null: false, comment: "Post status"
     t.datetime "created_at", precision: 6, null: false, comment: "Timestamp of when the post was created"
     t.datetime "updated_at", precision: 6, null: false, comment: "Timestamp of when the post was last updated"
     t.index ["user_id"], name: "index_posts_on_user_id"
