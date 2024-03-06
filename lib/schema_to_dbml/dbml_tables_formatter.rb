@@ -29,7 +29,7 @@ class DbmlTablesFormatter
       formatted_comment = format_comment(comment:)
       formatted_default = format_default(default:)
       formatted_null = format_null(null:)
-      custom_type = configuration.custom_tables&.dig(table_name, name, 'type')
+      custom_type = configuration.custom_tables&.dig(table_name, 'attributes', name, 'type')
       formatted_type = format_type(type: custom_type || type, array:, limit:)
 
       final_values = [formatted_default, formatted_null, formatted_comment].compact.reject(&:empty?)

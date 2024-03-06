@@ -17,5 +17,6 @@ custom_dbml_content: |
 custom_dbml_file_path: 'db/schema.dbml'
 custom_tables:
   posts:
-    status:
-      type: post_status
+    attributes:
+      status:
+        type: post_status
