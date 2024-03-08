@@ -87,7 +87,7 @@ RSpec.describe DbmlTablesFormatter do
         SchemaToDbml.configuration.custom_primary_key = custom_primary_key
       end
 
-      after { SchemaToDbml.configuration.custom_primary_key = "id integer [pk, unique, note: 'Unique identifier and primary key']" }
+      after { SchemaToDbml.load_configuration_from_yaml }
 
       it 'formats the given custom orimary key' do
         expect(perform).to eq(expected_dbml)
@@ -119,6 +119,46 @@ RSpec.describe DbmlTablesFormatter do
 
       it 'does not return note section' do
         expect(perform).to eq(expected_dbml)
+      end
+    end
+
+    context 'with custom column type' do
+      let(:table_name) { 'posts' }
+      let(:table_attributes) do
+        <<~COLUMNS
+          t.string "status", default: "draft", null: false
+        COLUMNS
+      end
+      let(:table_comment) { nil }
+      let(:expected_dbml) do
+        <<~DBML.strip
+          Table posts {
+            id integer [pk, unique, note: 'Unique identifier and primary key']
+            status post_status [default: 'draft',not null]
+          }
+        DBML
+      end
+
+      it 'returns status with post status' do
+        expect(perform).to eq(expected_dbml)
+      end
+
+      context 'when custom tables is empty' do
+        before { SchemaToDbml.configuration.custom_tables = nil }
+        after { SchemaToDbml.load_configuration_from_yaml }
+
+        let(:expected_dbml) do
+          <<~DBML.strip
+            Table posts {
+              id integer [pk, unique, note: 'Unique identifier and primary key']
+              status varchar [default: 'draft',not null]
+            }
+          DBML
+        end
+
+        it 'returns post status with varchar type' do
+          expect(perform).to eq(expected_dbml)
+        end
       end
     end
   end

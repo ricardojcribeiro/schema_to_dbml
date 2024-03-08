@@ -8,6 +8,7 @@ class Configuration
     @custom_primary_key = yaml_data['custom_primary_key']
     @custom_project_name = yaml_data['custom_project_name']
     @custom_project_notes = yaml_data['custom_project_notes']
+    @custom_tables = yaml_data['custom_tables']
   end
 
   attr_accessor :custom_database_type,
@@ -15,5 +16,6 @@ class Configuration
                 :custom_dbml_file_path,
                 :custom_primary_key,
                 :custom_project_name,
-                :custom_project_notes
+                :custom_project_notes,
+                :custom_tables
 end

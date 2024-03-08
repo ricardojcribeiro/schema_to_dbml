@@ -28,6 +28,7 @@ Table posts {
   context jsonb [default: '{}']
   internal_description text [note: 'Internal "description" with \'quotes\'']
   user_id bigint [not null,note: 'Foreign key of the user who created the post']
+  status post_status [default: 'draft',not null,note: 'Post status']
   created_at timestamp [not null,note: 'Timestamp of when the post was created']
   updated_at timestamp [not null,note: 'Timestamp of when the post was last updated']
   indexes {
@@ -56,3 +57,8 @@ Ref fk_rails_comments_users:comments.user_id - users.id
 
 Ref fk_rails_posts_users:posts.user_id - users.id [delete: cascade]
 
+Enum post_status {
+  draft [note: 'The post is still being created and not yet published.']
+  published [note: 'The post is publicly visible and accessible to everyone.']
+  archived [note: 'The post is no longer publicly visible, but it's still saved in the system for reference or historical purposes']
+}

@@ -10,6 +10,7 @@ RSpec.describe Configuration do
     it { is_expected.to respond_to(:custom_primary_key) }
     it { is_expected.to respond_to(:custom_project_name) }
     it { is_expected.to respond_to(:custom_project_notes) }
+    it { is_expected.to respond_to(:custom_tables) }
   end
 
   describe 'default values' do
@@ -67,6 +68,11 @@ RSpec.describe Configuration do
     it 'can set custom_dbml_file_path' do
       configuration.custom_dbml_file_path = 'my/path.dbml'
       expect(configuration.custom_dbml_file_path).to eq('my/path.dbml')
+    end
+
+    it 'can set custom_tables' do
+      configuration.custom_tables = 'custom-table'
+      expect(configuration.custom_tables).to eq('custom-table')
     end
   end
 end
