@@ -25,11 +25,12 @@ class DbmlTablesFormatter
   def build_columns(table_name, table_attributes)
     columns = []
 
+    custom_table_attributes = configuration.custom_tables&.dig(table_name, 'attributes')
     table_attributes.scan(COLUMNS_REGEXP).each do |type, name, default, null, comment, _precision, array, limit|
       formatted_comment = format_comment(comment:)
       formatted_default = format_default(default:)
       formatted_null = format_null(null:)
-      custom_type = configuration.custom_tables&.dig(table_name, 'attributes', name, 'type')
+      custom_type = custom_table_attributes&.dig(name, 'type')
       formatted_type = format_type(type: custom_type || type, array:, limit:)
 
       final_values = [formatted_default, formatted_null, formatted_comment].compact.reject(&:empty?)
