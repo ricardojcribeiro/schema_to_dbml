@@ -21,7 +21,7 @@ RSpec.describe BuildDbmlContent do
   end
   let(:custom_dbml_content) do
     "enum object_status {
-      created [note: 'Waiting to be processed']
+      created [note: '''Waiting to be processed''']
       running
       done
       failure
@@ -31,7 +31,7 @@ RSpec.describe BuildDbmlContent do
   describe '#build' do
     let(:expected_dbml_content) do
       [
-        "Project TestProject {\n  database_type: 'PostgreSQL'\n  Note: 'TestNotes'\n}",
+        "Project TestProject {\n  database_type: 'PostgreSQL'\n  Note: '''TestNotes'''\n}",
         'Table users { id integer [pk] name varchar }',
         'Ref: users.id < orders.user_id',
         custom_dbml_content

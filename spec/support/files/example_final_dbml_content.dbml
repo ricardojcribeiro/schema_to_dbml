@@ -1,53 +1,53 @@
 Project dbml_database_definition {
   database_type: 'PostgreSQL'
-  Note: '# My Project Notes
+  Note: '''# My Project Notes
 This is a **project** that documents the database. Here are some key points:
 
 - Utilizes the custom primary key for better indexing
 - Specifies the appropriate database type (e.g., PostgreSQL)
 - Provides meaningful project information and descriptions
-'
+'''
 }
 
 Table users {
-  id integer [pk, unique, note: 'Unique identifier and primary key']
-  name varchar [not null,note: 'Name of the user']
-  email varchar [not null,note: 'Email of the user']
+  id integer [pk, unique, note: '''Unique identifier and primary key''']
+  name varchar [not null,note: '''Name of the user''']
+  email varchar [not null,note: '''Email of the user''']
   gender varchar(1)
-  password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
+  password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: '''Encrypted password''']
   tags text[]
-  created_at timestamp [not null,note: 'Timestamp of when the user was created']
-  updated_at timestamp [not null,note: 'Timestamp of when the user was last updated']
-  Note: 'Represents a user who can create blog posts and comments'
+  created_at timestamp [not null,note: '''Timestamp of when the user was created''']
+  updated_at timestamp [not null,note: '''Timestamp of when the user was last updated''']
+  Note: '''Represents a user who can create blog posts and comments'''
 }
 
 Table posts {
-  id integer [pk, unique, note: 'Unique identifier and primary key']
-  title varchar [default: 'General Title',not null,note: 'Title of the post']
-  content text [not null,note: 'Content of the post']
+  id integer [pk, unique, note: '''Unique identifier and primary key''']
+  title varchar [default: 'General Title',not null,note: '''Title of the post''']
+  content text [not null,note: '''Content of the post''']
   context jsonb [default: '{}']
-  internal_description text [note: 'Internal "description" with \'quotes\'']
-  user_id bigint [not null,note: 'Foreign key of the user who created the post']
-  created_at timestamp [not null,note: 'Timestamp of when the post was created']
-  updated_at timestamp [not null,note: 'Timestamp of when the post was last updated']
+  internal_description text [note: '''Internal "description" with \'quotes\'''']
+  user_id bigint [not null,note: '''Foreign key of the user who created the post''']
+  created_at timestamp [not null,note: '''Timestamp of when the post was created''']
+  updated_at timestamp [not null,note: '''Timestamp of when the post was last updated''']
   indexes {
     (user_id) [name: 'index_posts_on_user_id']
   }
-  Note: 'Represents a blog post created by a user'
+  Note: '''Represents a blog post created by a user'''
 }
 
 Table comments {
-  id integer [pk, unique, note: 'Unique identifier and primary key']
-  content text [not null,note: 'Content of the comment']
-  user_id bigint [not null,note: 'Foreign key of the user who created the comment']
-  post_id bigint [not null,note: 'Foreign key of the post that the comment belongs to']
-  created_at timestamp [not null,note: 'Timestamp of when the comment was created']
-  updated_at timestamp [not null,note: 'Timestamp of when the comment was last updated']
+  id integer [pk, unique, note: '''Unique identifier and primary key''']
+  content text [not null,note: '''Content of the comment''']
+  user_id bigint [not null,note: '''Foreign key of the user who created the comment''']
+  post_id bigint [not null,note: '''Foreign key of the post that the comment belongs to''']
+  created_at timestamp [not null,note: '''Timestamp of when the comment was created''']
+  updated_at timestamp [not null,note: '''Timestamp of when the comment was last updated''']
   indexes {
     (post_id) [unique, name: 'index_comments_on_post_id']
     (user_id) [name: 'index_comments_on_user_id']
   }
-  Note: 'Represents a comment created by a user on a specific blog post'
+  Note: '''Represents a comment created by a user on a specific blog post'''
 }
 
 Ref fk_rails_comments_posts:comments.post_id - posts.id
