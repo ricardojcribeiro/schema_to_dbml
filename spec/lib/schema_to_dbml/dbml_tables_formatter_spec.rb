@@ -30,12 +30,12 @@ RSpec.describe DbmlTablesFormatter do
     let(:expected_dbml) do
       <<~DBML.strip
         Table users {
-          id integer [pk, unique, note: 'Unique identifier and primary key']
-          name varchar [not null,note: 'Name of the user']
+          id integer [pk, unique, note: '''Unique identifier and primary key''']
+          name varchar [not null,note: '''Name of the user''']
           age int [default: 0]
           rating decimal
           gender varchar(1)
-          password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
+          password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: '''Encrypted password''']
           context jsonb [default: '{}']
           tags text[]
           email varchar [default: '']
@@ -43,7 +43,7 @@ RSpec.describe DbmlTablesFormatter do
           indexes {
             (email) [unique, name: 'index_users_on_email']
           }
-          Note: 'Represents a user who can create blog posts and comments'
+          Note: '''Represents a user who can create blog posts and comments'''
         }
       DBML
     end
@@ -61,16 +61,16 @@ RSpec.describe DbmlTablesFormatter do
     end
 
     context 'when custom_primary_key is defined' do
-      let(:custom_primary_key) { "custom_id varchar [pk, note: 'my custom id']" }
+      let(:custom_primary_key) { "custom_id varchar [pk, note: '''my custom id''']" }
       let(:expected_dbml) do
         <<~DBML.strip
           Table users {
-            custom_id varchar [pk, note: 'my custom id']
-            name varchar [not null,note: 'Name of the user']
+            custom_id varchar [pk, note: '''my custom id''']
+            name varchar [not null,note: '''Name of the user''']
             age int [default: 0]
             rating decimal
             gender varchar(1)
-            password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
+            password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: '''Encrypted password''']
             context jsonb [default: '{}']
             tags text[]
             email varchar [default: '']
@@ -78,7 +78,7 @@ RSpec.describe DbmlTablesFormatter do
             indexes {
               (email) [unique, name: 'index_users_on_email']
             }
-            Note: 'Represents a user who can create blog posts and comments'
+            Note: '''Represents a user who can create blog posts and comments'''
           }
         DBML
       end
@@ -87,7 +87,7 @@ RSpec.describe DbmlTablesFormatter do
         SchemaToDbml.configuration.custom_primary_key = custom_primary_key
       end
 
-      after { SchemaToDbml.configuration.custom_primary_key = "id integer [pk, unique, note: 'Unique identifier and primary key']" }
+      after { SchemaToDbml.configuration.custom_primary_key = "id integer [pk, unique, note: '''Unique identifier and primary key''']" }
 
       it 'formats the given custom orimary key' do
         expect(perform).to eq(expected_dbml)
@@ -100,12 +100,12 @@ RSpec.describe DbmlTablesFormatter do
       let(:expected_dbml) do
         <<~DBML.strip
             Table users {
-            id integer [pk, unique, note: 'Unique identifier and primary key']
-            name varchar [not null,note: 'Name of the user']
+            id integer [pk, unique, note: '''Unique identifier and primary key''']
+            name varchar [not null,note: '''Name of the user''']
             age int [default: 0]
             rating decimal
             gender varchar(1)
-            password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: 'Encrypted password']
+            password varchar [default: `(now() + 'P1Y'::interval)`,not null,note: '''Encrypted password''']
             context jsonb [default: '{}']
             tags text[]
             email varchar [default: '']
