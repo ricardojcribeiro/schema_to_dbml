@@ -167,7 +167,7 @@ RSpec.describe Formatters::FieldsFormatter do
       let(:comment) { "This is a comment with a ' quote" }
 
       it 'returns the formatted comment string' do
-        expect(perform).to eq("note: 'This is a comment with a \\' quote'")
+        expect(perform).to eq("note: '''This is a comment with a \\' quote'''")
       end
     end
   end

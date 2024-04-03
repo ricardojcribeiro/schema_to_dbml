@@ -63,7 +63,7 @@ class DbmlTablesFormatter
     dbml_table << "#{TAB}#{custom_primary_key}\n"
     dbml_table << columns.join("\n")
     dbml_table << indexes if indexes
-    dbml_table << "\n#{TAB}Note: '#{table_comment}'" unless table_comment.to_s.empty?
+    dbml_table << "\n#{TAB}Note: '''#{table_comment}'''" unless table_comment.to_s.empty?
     dbml_table << "\n}"
     dbml_table
   end
