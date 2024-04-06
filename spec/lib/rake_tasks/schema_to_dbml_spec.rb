@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'schema_to_dbml' do
+RSpec.describe 'SchemaToDbml' do
   before do
     Rake::Task.define_task(:environment)
   end
@@ -11,11 +11,13 @@ RSpec.describe 'schema_to_dbml' do
     let(:task) { Rake::Task['schema_to_dbml:generate'] }
     let(:perform) { task.invoke(file_path) }
 
-    it 'delegates proper parameters to SchemaToDbml' do
-      expect(SchemaToDbml)
+    before do
+      allow(SchemaToDbml)
         .to receive(:new)
         .and_return(schema_instance)
+    end
 
+    it 'delegates proper parameters to SchemaToDbml' do
       expect(schema_instance)
         .to receive(:generate)
         .with(schema: file_path)
