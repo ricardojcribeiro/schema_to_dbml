@@ -64,7 +64,7 @@ RSpec.describe SchemaToDbml do
     context 'when custom configuration file is missing primary key' do
       let(:expected_response) do
         {
-          custom_primary_key: "id integer [pk, unique, note: 'Unique identifier and primary key']",
+          custom_primary_key: "id integer [pk, unique, note: '''Unique identifier and primary key''']",
           custom_database_type: 'custom_database',
           custom_project_name: 'custom_project_name',
           custom_project_notes: 'custom_notes'

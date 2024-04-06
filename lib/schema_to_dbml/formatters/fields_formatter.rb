@@ -52,7 +52,7 @@ module Formatters
         note.gsub!(mapper[:from], mapper[:to])
       end
 
-      "note: '#{note}'"
+      "note: '''#{note}'''"
     end
   end
 end
