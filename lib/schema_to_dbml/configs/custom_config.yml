@@ -8,15 +8,4 @@ custom_project_notes: |
   - Specifies the appropriate database type (e.g., PostgreSQL)
   - Provides meaningful project information and descriptions
 custom_primary_key: "id integer [pk, unique, note: 'Unique identifier and primary key']"
-custom_dbml_content: |
-  Enum post_status {
-    draft [note: 'The post is still being created and not yet published.']
-    published [note: 'The post is publicly visible and accessible to everyone.']
-    archived [note: 'The post is no longer publicly visible, but it's still saved in the system for reference or historical purposes']
-  }
 custom_dbml_file_path: 'db/schema.dbml'
-custom_tables:
-  posts:
-    attributes:
-      status:
-        type: post_status

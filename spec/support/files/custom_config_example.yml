@@ -1,11 +1,12 @@
 custom_project_name: 'custom_project_name'
-custom_database_type: "'custom_database'"
+custom_database_type: "custom_database"
 custom_project_notes: 'custom_notes'
+custom_primary_key: "id integer [pk, unique, note: 'Unique identifier and primary key']"
 custom_tables:
-  attributes:
-    posts:
+  posts:
+    attributes:
       status:
-        type: 'post_status'
+        type: post_status
 custom_dbml_content: |
   Enum post_status {
     draft [note: 'The post is still being created and not yet published.']

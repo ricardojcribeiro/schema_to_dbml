@@ -14,7 +14,7 @@ module FinalDbmlContentSpecHelper
           custom_primary_key: "id integer [pk, unique, note: 'Unique identifier and primary key']",
           custom_database_type: 'PostgreSQL',
           custom_project_name: 'dbml_database_definition',
-          custom_project_notes:  "# My Project Notes\nThis is a **project** that documents the database. Here are some key points:\n\n- Utilizes the custom primary key for better indexing\n- Specifies the appropriate database type (e.g., PostgreSQL)\n- Provides meaningful project information and descriptions\n"
+          custom_project_notes: "# My Project Notes\nThis is a **project** that documents the database. Here are some key points:\n\n- Utilizes the custom primary key for better indexing\n- Specifies the appropriate database type (e.g., PostgreSQL)\n- Provides meaningful project information and descriptions\n"
         }
       end
     end

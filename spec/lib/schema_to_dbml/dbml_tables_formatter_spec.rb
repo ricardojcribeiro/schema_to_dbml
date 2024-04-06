@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe DbmlTablesFormatter do
+  include DbmlCustomContentSpecHelper
+
+  stub_custom_config
+
   it 'includes Constants' do
     expect(described_class.ancestors).to include(Helpers::Constants)
   end
@@ -52,10 +56,6 @@ RSpec.describe DbmlTablesFormatter do
       subject.format(table_name:, table_comment:, table_attributes:)
     end
 
-    before do
-      SchemaToDbml.load_configuration_from_yaml
-    end
-
     it 'formats the given table name, table comment, and parsed columns into a DBML string' do
       expect(perform).to eq(expected_dbml)
     end
@@ -83,11 +83,7 @@ RSpec.describe DbmlTablesFormatter do
         DBML
       end
 
-      before do
-        SchemaToDbml.configuration.custom_primary_key = custom_primary_key
-      end
-
-      after { SchemaToDbml.load_configuration_from_yaml }
+      before { configuration.custom_primary_key = custom_primary_key }
 
       it 'formats the given custom orimary key' do
         expect(perform).to eq(expected_dbml)
@@ -144,8 +140,7 @@ RSpec.describe DbmlTablesFormatter do
       end
 
       context 'when custom tables is empty' do
-        before { SchemaToDbml.configuration.custom_tables = nil }
-        after { SchemaToDbml.load_configuration_from_yaml }
+        before { configuration.custom_tables = nil }
 
         let(:expected_dbml) do
           <<~DBML.strip

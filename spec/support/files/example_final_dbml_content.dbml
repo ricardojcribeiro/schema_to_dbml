@@ -1,12 +1,6 @@
-Project dbml_database_definition {
-  database_type: 'PostgreSQL'
-  Note: '# My Project Notes
-This is a **project** that documents the database. Here are some key points:
-
-- Utilizes the custom primary key for better indexing
-- Specifies the appropriate database type (e.g., PostgreSQL)
-- Provides meaningful project information and descriptions
-'
+Project custom_project_name {
+  database_type: 'custom_database'
+  Note: 'custom_notes'
 }
 
 Table users {
