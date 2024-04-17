@@ -2,14 +2,15 @@
 
 RSpec.describe SchemaToDbml do
   include FinalDbmlContentSpecHelper
+  include DbmlCustomContentSpecHelper
+
+  rollback_config
 
   describe '#convert' do
     let(:schema_path) { "#{SUPPORT_FILES_PATH}/example_schema.rb" }
     let(:perform) { subject.convert(schema: schema_path) }
 
-    before do
-      described_class.load_configuration_from_yaml
-    end
+    before { load_custom_config }
 
     context 'when schema file exists' do
       it 'returns the expected DBML content' do
@@ -30,9 +31,7 @@ RSpec.describe SchemaToDbml do
     let(:schema_path) { "#{SUPPORT_FILES_PATH}/example_schema.rb" }
     let(:perform) { subject.generate(schema: schema_path) }
 
-    before do
-      described_class.load_configuration_from_yaml
-    end
+    before { load_custom_config }
 
     context 'when schema file exists' do
       let(:dbml_file_path) { 'generated.dbml' }
@@ -60,16 +59,13 @@ RSpec.describe SchemaToDbml do
   end
 
   describe '.load_configuration_from_yaml' do
-    let(:default_config_path) { described_class::DEFAULT_CONFIG_FILE }
-    let(:file_path) { nil }
-    let(:perform) { described_class.load_configuration_from_yaml(file_path:) }
+    let(:perform) { load_custom_config }
 
     context 'when custom configuration file is missing primary key' do
-      let(:file_path) { "#{SUPPORT_FILES_PATH}/custom_config_example.yml" }
       let(:expected_response) do
         {
           custom_primary_key: "id integer [pk, unique, note: '''Unique identifier and primary key''']",
-          custom_database_type: "'custom_database'",
+          custom_database_type: 'custom_database',
           custom_project_name: 'custom_project_name',
           custom_project_notes: 'custom_notes'
         }
@@ -83,7 +79,7 @@ RSpec.describe SchemaToDbml do
     end
 
     context 'when no file path is given' do
-      let(:perform) { described_class.load_configuration_from_yaml }
+      let(:perform) { load_default_config }
 
       it 'loads the default configuration' do
         perform
@@ -93,7 +89,7 @@ RSpec.describe SchemaToDbml do
     end
 
     context 'when configuration file does not exist' do
-      let(:file_path) { 'invalid_path' }
+      let(:custom_config_path) { 'invalid_path' }
 
       it 'raises FileNotFoundError' do
         expect { perform }.to raise_error(Errors::ConfigurationFileNotFoundError)
