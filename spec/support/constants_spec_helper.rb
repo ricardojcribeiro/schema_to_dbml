@@ -20,6 +20,7 @@ module ConstantsSpecHelper
           { type: 'text', name: 'internal_description', default: nil, null: nil, comment: "Internal \\\"description\\\" with 'quotes'", precision: nil, array: nil },
           { type: 'bigint', name: 'user_id', default: nil, null: 'null: false', comment: 'Foreign key of the user who created the post', precision: nil,
             array: nil },
+          { type: 'string', name: 'status', default: "default: 'draft'", null: 'null: false', comment: 'Post status' },
           { type: 'datetime', name: 'created_at', default: nil, null: 'null: false', comment: 'Timestamp of when the post was created', precision: '6',
             array: nil },
           { type: 'datetime', name: 'updated_at', default: nil, null: 'null: false', comment: 'Timestamp of when the post was last updated',

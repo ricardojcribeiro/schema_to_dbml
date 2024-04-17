@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe DbmlTablesFormatter do
+  include DbmlCustomContentSpecHelper
+
+  stub_custom_config
+
   it 'includes Constants' do
     expect(described_class.ancestors).to include(Helpers::Constants)
   end
@@ -52,10 +56,6 @@ RSpec.describe DbmlTablesFormatter do
       subject.format(table_name:, table_comment:, table_attributes:)
     end
 
-    before do
-      SchemaToDbml.load_configuration_from_yaml
-    end
-
     it 'formats the given table name, table comment, and parsed columns into a DBML string' do
       expect(perform).to eq(expected_dbml)
     end
@@ -83,13 +83,9 @@ RSpec.describe DbmlTablesFormatter do
         DBML
       end
 
-      before do
-        SchemaToDbml.configuration.custom_primary_key = custom_primary_key
-      end
+      before { configuration.custom_primary_key = custom_primary_key }
 
-      after { SchemaToDbml.configuration.custom_primary_key = "id integer [pk, unique, note: '''Unique identifier and primary key''']" }
-
-      it 'formats the given custom orimary key' do
+      it 'formats the given custom primary key' do
         expect(perform).to eq(expected_dbml)
       end
     end
@@ -119,6 +115,45 @@ RSpec.describe DbmlTablesFormatter do
 
       it 'does not return note section' do
         expect(perform).to eq(expected_dbml)
+      end
+    end
+
+    context 'with custom column type' do
+      let(:table_name) { 'posts' }
+      let(:table_attributes) do
+        <<~COLUMNS
+          t.string "status", default: "draft", null: false
+        COLUMNS
+      end
+      let(:table_comment) { nil }
+      let(:expected_dbml) do
+        <<~DBML.strip
+          Table posts {
+            id integer [pk, unique, note: '''Unique identifier and primary key''']
+            status post_status [default: 'draft',not null]
+          }
+        DBML
+      end
+
+      it 'returns status with post status' do
+        expect(perform).to eq(expected_dbml)
+      end
+
+      context 'when custom tables is empty' do
+        before { configuration.custom_tables = nil }
+
+        let(:expected_dbml) do
+          <<~DBML.strip
+            Table posts {
+              id integer [pk, unique, note: '''Unique identifier and primary key''']
+              status varchar [default: 'draft',not null]
+            }
+          DBML
+        end
+
+        it 'returns post status with varchar type' do
+          expect(perform).to eq(expected_dbml)
+        end
       end
     end
   end

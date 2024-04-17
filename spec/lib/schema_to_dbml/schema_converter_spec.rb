@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 describe SchemaConverter do
+  include DbmlCustomContentSpecHelper
   include SchemaConverterSpecHelper
+
+  stub_custom_config
 
   let(:schema_content) { File.read("#{SUPPORT_FILES_PATH}/example_schema.rb") }
 

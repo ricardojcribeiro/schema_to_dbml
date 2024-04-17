@@ -81,3 +81,9 @@ Gemspec/DevelopmentDependencies:
 
 Metrics/ParameterLists:
   Max: 8
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
