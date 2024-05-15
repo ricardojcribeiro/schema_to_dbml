@@ -80,7 +80,7 @@ custom_project_notes: |
 custom_dbml_content: |
   enum object_status {
     created [note: 'Initial status']
-    pending  
+    pending
     finished
     cancelled
   }
@@ -89,6 +89,11 @@ custom_dbml_content: |
     table_2
     table_3
   }
+custom_tables:
+  my_table:
+    attributes:
+      my_attribute:
+        type: object_status
 ```
 
 After that, you can use the SchemaToDbml to generate the DBML content as usual.
