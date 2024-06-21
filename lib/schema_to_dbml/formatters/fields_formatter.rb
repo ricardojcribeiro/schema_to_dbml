@@ -52,6 +52,8 @@ module Formatters
         note.gsub!(mapper[:from], mapper[:to])
       end
 
+      note = "#{note} " if note[-1, 1] == "'"
+
       "note: '''#{note}'''"
     end
   end
